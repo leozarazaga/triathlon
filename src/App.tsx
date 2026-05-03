@@ -1,3 +1,9 @@
+import Profiles from "./components/Profiles";
+
+const profiles = [
+    { id: 1, name: "Leo", image: "src/assets/avatars/leo.jpeg", color: "#0d6efd" },
+    { id: 2, name: "Klara", image: "src/assets/avatars/klara.jpeg", color: "#d63384" },
+];
 const App = () => {
     return (
         <div className="vh-100 d-flex flex-column">
@@ -26,6 +32,10 @@ const App = () => {
             {/* Main Layout Area */}
             <div className="container-fluid flex-grow-1 overflow-hidden">
                 <div className="row h-100">
+                    {profiles.map((profile) => (
+                        <Profiles name={profile.name} image={profile.image} />
+                    ))}
+
                     {/* Sidebar */}
                     <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse h-100 border-end">
                         <div className="position-sticky pt-4">
