@@ -6,7 +6,8 @@ interface Profiles {
 const Profiles = ({ name, image }: Profiles) => {
     return (
         <div>
-            <img src={image} alt={name} className="rounded-circle"/>
+            <img src={image} alt={name} className="rounded-circle"style={{ width: 120, height: 120, objectFit: 'cover' }}/>
+            <p>{name}</p>
         </div>
     );
 };

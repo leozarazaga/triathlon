@@ -1,8 +1,9 @@
 import Profiles from "./components/Profiles";
+import RaceTracker from "./components/RaceTracker";
 
 const profiles = [
     { id: 1, name: "Leo", image: "src/assets/avatars/leo.jpeg", color: "#0d6efd" },
-    { id: 2, name: "Klara", image: "src/assets/avatars/klara.jpeg", color: "#d63384" },
+    { id: 2, name: "Klara", image: "src/assets/avatars/klara.png", color: "#d63384" },
 ];
 const App = () => {
     return (
@@ -32,10 +33,6 @@ const App = () => {
             {/* Main Layout Area */}
             <div className="container-fluid flex-grow-1 overflow-hidden">
                 <div className="row h-100">
-                    {profiles.map((profile) => (
-                        <Profiles name={profile.name} image={profile.image} />
-                    ))}
-
                     {/* Sidebar */}
                     <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse h-100 border-end">
                         <div className="position-sticky pt-4">
@@ -69,7 +66,10 @@ const App = () => {
                         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                             <h1 className="h2">Overview</h1>
                         </div>
-                        <p>Your main content goes here...</p>
+                        <RaceTracker />
+                        {profiles.map((profile) => (
+                            <Profiles name={profile.name} image={profile.image} />
+                        ))}
                     </main>
                 </div>
             </div>
