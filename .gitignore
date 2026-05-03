@@ -1,16 +1,16 @@
-# Beroenden (Dependencies)
+# Dependencies
 node_modules/
 
-# Byggfiler (Production build)
+# Production build
 dist/
 dist-ssr/
 
-# Lokala miljövariabler (Environment variables)
+# Environment variables
 .env
 .env.local
 .env.*.local
 
-# Loggfiler
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -19,11 +19,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# OS-specifika filer
+# OS-specific files
 .DS_Store
 Thumbs.db
 
-# Editor/IDE-specifika filer
+# Editor/IDE-specific files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -33,5 +33,5 @@ Thumbs.db
 *.sln
 *.sw?
 
-# TypeScript-cachar (om du använder TS)
+# TypeScript caches
 *.tsbuildinfo
