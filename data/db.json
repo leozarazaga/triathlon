@@ -1,0 +1,64 @@
+{
+    "sessions": [
+        {
+            "id": 1,
+            "type": "swim",
+            "desc": "2 km intervaller",
+            "dist": 2000,
+            "unit": "m",
+            "date": "Wed May 3rd",
+            "completed": {
+                "leo": false,
+                "klara": false
+            }
+        },
+        {
+            "id": 2,
+            "type": "bike",
+            "desc": "45 min tröskelpass",
+            "dist": 25,
+            "unit": "km",
+            "date": "Thu May 4th",
+            "completed": {
+                "leo": true,
+                "klara": false
+            }
+        },
+        {
+            "id": 3,
+            "type": "run",
+            "desc": "10 km lugn distans",
+            "dist": 10,
+            "unit": "km",
+            "date": "Fri May 5th",
+            "completed": {
+                "leo": false,
+                "klara": true
+            }
+        },
+        {
+            "id": 4,
+            "type": "swim",
+            "desc": "1 km teknik",
+            "dist": 1000,
+            "unit": "m",
+            "date": "Sat May 6th",
+            "completed": {
+                "leo": true,
+                "klara": true
+            }
+        },
+        {
+            "id": 5,
+            "type": "bike",
+            "desc": "60 km långpass",
+            "dist": 60,
+            "unit": "km",
+            "date": "Sun May 7th",
+            "completed": {
+                "leo": false,
+                "klara": false
+            }
+        }
+    ]
+}
