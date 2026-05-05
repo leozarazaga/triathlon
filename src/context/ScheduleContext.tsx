@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface Session {
     id: number;
@@ -15,7 +15,7 @@ interface Session {
 
 interface ScheduleContextType {
     sessions: Session[];
-    toggle: (person: "leo" | "klara", id: number) => void;
+    handleToggle: (person: "leo" | "klara", id: number) => void;
 }
 
 const ScheduleContext = createContext<ScheduleContextType | null>(null);
@@ -43,10 +43,18 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
                       ...session,
                       completed: {
                           ...session.completed,
-                          [person]: !session.completed[person], // vänd på true/false
+                          [person]: !session.completed[person],
                       },
                   };
 
         setSessions((prev) => prev.map(updateSession));
     };
+
+    return <ScheduleContext.Provider value={{ sessions, handleToggle }}>{children}</ScheduleContext.Provider>;
 }
+
+export const useSchedule = () => {
+    const context = useContext(ScheduleContext);
+    if (!context) throw new Error("useSchedule måste användas inom ScheduleProvider");
+    return context;
+};
