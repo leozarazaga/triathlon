@@ -17,7 +17,7 @@ const App = () => {
             <nav className="navbar navbar-expand-md navbar-dark bg-dark flex-md-nowrap p-2 shadow">
                 <div className="container-fluid">
                     <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
-                        My Dashboard
+                        Our Dashbord
                     </a>
 
                     {/* Mobile Toggle Button */}

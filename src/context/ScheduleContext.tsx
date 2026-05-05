@@ -6,10 +6,13 @@ interface Session {
     desc: string;
     dist: number;
     unit: "m" | "km";
-    date: string;
     completed: {
         leo: boolean;
         klara: boolean;
+    };
+    completedAt?: {
+        leo?: string;
+        klara?: string;
     };
 }
 
@@ -27,8 +30,53 @@ const startSessions: Session[] = [
         desc: "2 km intervaller",
         dist: 2000,
         unit: "m",
-        date: "Mån 28 apr",
         completed: { leo: false, klara: false },
+        completedAt: {},
+    },
+     {
+        id: 2,
+        type: "swim",
+        desc: "4 km intervaller",
+        dist: 4000,
+        unit: "m",
+        completed: { leo: false, klara: false },
+        completedAt: {},
+    },
+       {
+        id: 3,
+        type: "bike",
+        desc: "4 km intervaller",
+        dist: 4000,
+        unit: "m",
+        completed: { leo: false, klara: false },
+        completedAt: {},
+    },
+       {
+        id: 4,
+        type: "bike",
+        desc: "4 km intervaller",
+        dist: 4000,
+        unit: "m",
+        completed: { leo: false, klara: false },
+        completedAt: {},
+    },
+       {
+        id: 5,
+        type: "run",
+        desc: "1 km intervaller",
+        dist: 1000,
+        unit: "m",
+        completed: { leo: false, klara: false },
+        completedAt: {},
+    },
+       {
+        id: 6,
+        type: "run",
+        desc: "3 km intervaller",
+        dist: 3000,
+        unit: "m",
+        completed: { leo: false, klara: false },
+        completedAt: {},
     },
 ];
 
@@ -36,18 +84,25 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
     const [sessions, setSessions] = useState<Session[]>(startSessions);
 
     const handleToggle = (person: "leo" | "klara", id: number) => {
-        const updateSession = (session: Session) =>
-            session.id !== id
-                ? session
-                : {
-                      ...session,
-                      completed: {
-                          ...session.completed,
-                          [person]: !session.completed[person],
-                      },
-                  };
+        setSessions((prev) =>
+            prev.map((session) => {
+                if (session.id !== id) return session;
 
-        setSessions((prev) => prev.map(updateSession));
+                const isNowCompleted = !session.completed[person];
+
+                return {
+                    ...session,
+                    completed: {
+                        ...session.completed,
+                        [person]: isNowCompleted,
+                    },
+                    completedAt: {
+                        ...session.completedAt,
+                        [person]: isNowCompleted ? new Date().toISOString() : undefined,
+                    },
+                };
+            }),
+        );
     };
 
     return <ScheduleContext.Provider value={{ sessions, handleToggle }}>{children}</ScheduleContext.Provider>;
