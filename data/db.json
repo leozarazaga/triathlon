@@ -3,59 +3,68 @@
     {
       "id": "1",
       "type": "swim",
-      "desc": "2 km intervaller",
+      "desc": "2 km intervals",
       "dist": 2000,
       "unit": "m",
       "date": "Wed May 3rd",
       "completed": {
-        "leo": false,
-        "klara": false
+        "leo": true,
+        "klara": true
       },
-      "completedAt": {}
+      "completedAt": {
+        "klara": "2026-05-06T14:05:44.940Z",
+        "leo": "2026-05-06T14:05:51.222Z"
+      }
     },
     {
       "id": "2",
       "type": "bike",
-      "desc": "45 min tröskelpass",
+      "desc": "45 min threshold session",
       "dist": 25,
       "unit": "km",
       "date": "Thu May 4th",
       "completed": {
-        "leo": false,
+        "leo": true,
         "klara": false
       },
-      "completedAt": {}
+      "completedAt": {
+        "leo": "2026-05-06T14:03:29.823Z"
+      }
     },
     {
       "id": "3",
       "type": "run",
-      "desc": "10 km lugn distans",
+      "desc": "10 km easy distance",
       "dist": 10,
       "unit": "km",
       "date": "Fri May 5th",
       "completed": {
-        "leo": false,
+        "leo": true,
         "klara": false
       },
-      "completedAt": {}
+      "completedAt": {
+        "leo": "2026-05-06T13:59:20.206Z"
+      }
     },
     {
       "id": "4",
       "type": "swim",
-      "desc": "1 km teknik",
+      "desc": "1 km technique",
       "dist": 1000,
       "unit": "m",
       "date": "Sat May 6th",
       "completed": {
-        "leo": false,
+        "leo": true,
         "klara": false
       },
-      "completedAt": {}
+      "completedAt": {
+        "leo": "2026-05-06T14:03:30.474Z"
+      }
     },
     {
       "id": "5",
       "type": "bike",
-      "desc": "60 km långpass",
+      "desc": "60 km long ride",
       "dist": 60,
       "unit": "km",
       "date": "Sun May 7th",

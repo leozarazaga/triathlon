@@ -5,7 +5,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .race-tracker-lane {
-	
+
     .track-bg {
         height: 8px;
     }
@@ -24,5 +24,29 @@ h1, h2, h3, h4, h5, h6 {
         background-color: #ffffff; // bg-white
         transition: left 0.5s ease;
         z-index: 2;
+    }
+}
+
+.tracker-item {
+    border-bottom: 1px solid #f1f3f5;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #f8f9fa;
+    }
+
+    .tracker-text {
+        flex: 1;
+        font-size: 14px;
+        transition: color 0.3s ease;
+
+        &.is-completed {
+            text-decoration: line-through;
+            color: #adb5bd;
+        }
+        
+        &.is-pending {
+            color: #212529;
+        }
     }
 }
