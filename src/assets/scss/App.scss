@@ -1,23 +1,28 @@
 @import "bootstrap/scss/bootstrap";
 
 h1, h2, h3, h4, h5, h6 {
-	margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
-.todolist {
-	margin-bottom: 1.5rem;
+.race-tracker-lane {
+	
+    .track-bg {
+        height: 8px;
+    }
 
-	.list-group-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+    .track-progress {
+        height: 100%;
+        border-radius: 50rem;
+        transition: width 0.5s ease;
+    }
 
-		&.completed {
-			.todo-title {
-				color: $success;
-				font-style: italic;
-				text-decoration: line-through;
-			}
-		}
-	}
+    .racer-avatar {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        background-color: #ffffff; // bg-white
+        transition: left 0.5s ease;
+        z-index: 2;
+    }
 }
