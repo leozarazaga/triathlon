@@ -1,6 +1,6 @@
 import type { Profile } from "../types/Session";
 import Overview from "./Overview";
-import RaceTracker from "./RaceTracker";
+import TrainingLog from "./TrainingLog";
 
 interface MainContentProps {
     activeView: string;
@@ -13,28 +13,28 @@ const MainContent = ({ activeView, profiles }: MainContentProps) => {
             return (
                 <>
                     <Overview profiles={profiles} />
-                    <RaceTracker profiles={profiles} type="all" />
+                    <TrainingLog profiles={profiles} type="all" />
                 </>
             );
         case "swimming":
             return (
                 <>
                     <h1 className="h2 pb-2 mb-3 border-bottom">Swimming</h1>
-                    <RaceTracker profiles={profiles} type="swim" />
+                    <TrainingLog profiles={profiles} type="swim" />
                 </>
             );
         case "cycling":
             return (
                 <>
                     <h1 className="h2 pb-2 mb-3 border-bottom">Cycling</h1>
-                    <RaceTracker profiles={profiles} type="bike" />
+                    <TrainingLog profiles={profiles} type="bike" />
                 </>
             );
         case "running":
             return (
                 <>
                     <h1 className="h2 pb-2 mb-3 border-bottom">Running</h1>
-                    <RaceTracker profiles={profiles} type="run" />
+                    <TrainingLog profiles={profiles} type="run" />
                 </>
             );
         default:

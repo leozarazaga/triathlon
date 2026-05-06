@@ -8,10 +8,13 @@
       "unit": "m",
       "date": "Wed May 3rd",
       "completed": {
-        "leo": false,
-        "klara": false
+        "leo": true,
+        "klara": true
       },
-      "completedAt": {}
+      "completedAt": {
+        "klara": "2026-05-06T15:05:04.287Z",
+        "leo": "2026-05-06T15:07:10.471Z"
+      }
     },
     {
       "id": "2",
@@ -22,9 +25,11 @@
       "date": "Thu May 4th",
       "completed": {
         "leo": false,
-        "klara": false
+        "klara": true
       },
-      "completedAt": {}
+      "completedAt": {
+        "klara": "2026-05-06T15:05:04.619Z"
+      }
     },
     {
       "id": "3",
@@ -34,10 +39,12 @@
       "unit": "km",
       "date": "Fri May 5th",
       "completed": {
-        "leo": false,
+        "leo": true,
         "klara": false
       },
-      "completedAt": {}
+      "completedAt": {
+        "leo": "2026-05-06T15:05:07.403Z"
+      }
     },
     {
       "id": "4",
@@ -47,10 +54,13 @@
       "unit": "m",
       "date": "Sat May 6th",
       "completed": {
-        "leo": false,
-        "klara": false
+        "leo": true,
+        "klara": true
       },
-      "completedAt": {}
+      "completedAt": {
+        "leo": "2026-05-06T15:05:07.752Z",
+        "klara": "2026-05-06T15:07:06.789Z"
+      }
     },
     {
       "id": "5",

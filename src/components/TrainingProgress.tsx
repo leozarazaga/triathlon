@@ -1,5 +1,5 @@
 import { useSchedule } from "../context/ScheduleContext";
-import type { RaceTrackerProps } from "./RaceTracker";
+import type { RaceTrackerProps } from "./TrainingLog";
 
 const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
     const { sessions } = useSchedule();
