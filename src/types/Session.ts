@@ -1,6 +1,13 @@
 export type Person = "leo" | "klara";
 export type SportType = "swim" | "bike" | "run";
 
+export interface Profile {
+    id: number;
+    name: string;
+    image: string;
+    color: string;
+}
+
 export interface Session {
     id: number;
     type: SportType;
