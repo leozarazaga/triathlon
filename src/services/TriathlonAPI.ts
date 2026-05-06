@@ -14,9 +14,14 @@ export const getSessions = async () => {
 /**
  * PATCH a session
  */
-export const updateSession = async (id: number, data: Partial<UpdateSession>) => {
-    const res = await axios.patch(`${BASE_URL}/sessions/${id}`, data);
+export const updateSession = async (session_id: number, data: Partial<UpdateSession>) => {
+    const res = await axios.patch(`${BASE_URL}/sessions/${session_id}`, data);
     return res.data;
 };
 
-
+/**
+ * DELETE a session
+ */
+export const deleteSession = async (session_id: number) => {
+    await axios.delete(`${BASE_URL}/sessions/${session_id}`);
+};

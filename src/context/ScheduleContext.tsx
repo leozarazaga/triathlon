@@ -3,9 +3,9 @@ import type { Session } from "../types/Session";
 
 export interface ScheduleContextType {
     sessions: Session[];
-    handleToggle: (person: "leo" | "klara", id: number) => Promise<void>;
     isLoading: boolean;
     error: string | false;
+    handleToggle: (person: "leo" | "klara", id: number) => Promise<void>;
 }
 
 export const ScheduleContext = createContext<ScheduleContextType | null>(null);

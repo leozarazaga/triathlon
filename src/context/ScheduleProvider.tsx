@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
-import type { Session } from "../types/Session";
 import { getSessions, updateSession } from "../services/TriathlonAPI";
-import { ScheduleContext } from "./ScheduleContext"; // Import the context object
+import type { Session } from "../types/Session";
+import { ScheduleContext } from "./ScheduleContext"; 
 
 export function ScheduleProvider({ children }: { children: ReactNode }) {
     const [sessions, setSessions] = useState<Session[]>([]);
@@ -43,8 +43,8 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <ScheduleContext.Provider value={{ sessions, handleToggle, isLoading, error }}>
+        <ScheduleContext.Provider value={{ sessions, isLoading, error, handleToggle }}>
             {children}
         </ScheduleContext.Provider>
-    )    
+    )
 }

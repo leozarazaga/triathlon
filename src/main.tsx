@@ -1,10 +1,9 @@
 import "bootstrap";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./assets/scss/App.scss";
-
 import App from "./App.tsx";
-import { ScheduleProvider } from "./context/ScheduleContext.tsx";
+import "./assets/scss/App.scss";
+import { ScheduleProvider } from "./context/ScheduleProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
