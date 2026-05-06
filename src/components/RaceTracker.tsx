@@ -1,13 +1,6 @@
 import { useSchedule } from "../context/ScheduleContext";
+import type { Profile } from "../types/Session";
 import TrackerItem from "./TrackerItem";
-
-///////// Interfaces //////////
-interface Profile {
-    id: number;
-    name: string;
-    image: string;
-    color: string;
-}
 
 export interface RaceTrackerProps {
     profiles: Profile[];
@@ -26,7 +19,6 @@ const formatDate = (date?: string) => {
 const RaceTracker = ({ profiles, type }: RaceTrackerProps) => {
     const { sessions, handleToggle } = useSchedule();
 
-    // 🔥 viktigt: endast filter på typ
     const filtered = type === "all" ? sessions : sessions.filter((s) => s.type === type);
 
     const people = [
@@ -39,11 +31,8 @@ const RaceTracker = ({ profiles, type }: RaceTrackerProps) => {
             {people.map(({ key, profile }, index) => {
                 if (!profile) return null;
 
-                // 🔥 SPORT SESSIONS PER PERSON
                 const personSessions = filtered.filter((s) => s.completed[key]);
-
                 const totalSessions = personSessions.length;
-
                 const totalDistance = personSessions.reduce((sum, s) => sum + s.dist, 0);
 
                 return (

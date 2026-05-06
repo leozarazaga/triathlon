@@ -1,11 +1,10 @@
 import { useSchedule } from "../context/ScheduleContext";
 import type { RaceTrackerProps } from "./RaceTracker";
 
-const RaceTrackerBar = ({ profiles, type }: RaceTrackerProps) => {
+const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
     const { sessions } = useSchedule();
 
     const filtered = type === "all" ? sessions : sessions.filter((session) => session.type === type);
-
     const typeLabel = type === "all" ? "Total — All Sports" : type === "swim" ? "Swimming" : type === "bike" ? "Cycling" : "Running";
 
     const getPercentage = (name: string) => {
@@ -47,7 +46,6 @@ const RaceTrackerBar = ({ profiles, type }: RaceTrackerProps) => {
                 })}
             </div>
 
-            {/* Bottom Labels */}
             <div className="d-flex justify-content-between mt-2 px-3 text-secondary fw-medium small">
                 {profiles.map((profile) => (
                     <span key={profile.id}>
@@ -59,4 +57,4 @@ const RaceTrackerBar = ({ profiles, type }: RaceTrackerProps) => {
     );
 };
 
-export default RaceTrackerBar;
+export default TrainingProgress;

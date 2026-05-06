@@ -1,4 +1,4 @@
-import RaceTrackerInfo from "./RaceTrackerBar";
+import TrainingProgress from "./TrainingProgress";
 
 interface OverviewProps {
     profiles: {
@@ -25,7 +25,7 @@ const Overview = ({ profiles }: OverviewProps) => {
                     Klara
                 </span>
             </div>
-            <RaceTrackerInfo profiles={profiles} type="all" />
+            <TrainingProgress profiles={profiles} type="all" />
         </>
     );
 };
