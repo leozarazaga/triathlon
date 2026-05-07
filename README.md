@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# Triathlon Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Vite](https://img.shields.io/badge/Vite-8.0.10-646CFF?logo=vite&logoColor=FFD62E)
+![React](https://img.shields.io/badge/React-19.2.5-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0.3-3178C6?logo=typescript)
+![Code Style](https://img.shields.io/badge/Code_Style-ESLint_&_Type_Coverage-blue)
 
-Currently, two official plugins are available:
+**Triathlon Tracker** is a collaborative project between two friends preparing for our first triathlon. Designed by Klara and Leo, this app helps us track our training progress, log workouts, and keep an eye on our total distances.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Preview
 
-## React Compiler
+![Triathlon Preview](./src/assets/triathlon.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Track training sessions for Leo and Klara
+- Toggle workout completion status
+- Display total distance and workout statistics
+- Responsive mobile-friendly design
+- 100% type coverage and strict linting
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+To set up this project locally, run the following commands:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/leozarazaga/triathlon-tracker.git
+cd triathlon-tracker
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Running the Project
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This project uses `concurrently` to run both the frontend and the `json-server` mock database simultaneously.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Start the full development environment with:
+
+```bash
+npm start
 ```
+
+- The React frontend will run via Vite (typically at `http://localhost:5173`)
+- The mock database (`json-server`) will run at `http://localhost:3000`
+
+## Quality Checks
+
+Run linting, type checking, and type coverage with:
+
+```bash
+npm run check
+```
+
+This runs:
+
+- **ESLint** – Linting and formatting
+- **TypeScript strict checks** – Strict type checking
+- **Type Coverage** – 100% coverage (no `any`)
+
+## Technologies Used
+
+- **React 19 + TypeScript 6** – Component-based UI with strict typing
+- **Vite 8** – Fast development server and build tool
+- **JSON Server** – Local mock API for training data
+- **Axios** – HTTP client for API requests with async/await
+- **Bootstrap 5 + Sass** – UI components and custom styling
+- **ESLint 10 + Type Coverage** – Code quality and maximum type safety
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push the branch (`git push origin feature/my-feature`)
+5. Open a pull request
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+You are free to use, modify, and distribute this software, provided the original copyright and permission notices are included.

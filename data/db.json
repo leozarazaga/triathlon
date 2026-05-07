@@ -8,12 +8,11 @@
       "unit": "m",
       "date": "Wed May 3rd",
       "completed": {
-        "leo": true,
+        "leo": false,
         "klara": true
       },
       "completedAt": {
-        "klara": "2026-05-06T15:05:04.287Z",
-        "leo": "2026-05-06T15:07:10.471Z"
+        "klara": "2026-05-06T15:05:04.287Z"
       }
     },
     {
@@ -54,11 +53,10 @@
       "unit": "m",
       "date": "Sat May 6th",
       "completed": {
-        "leo": true,
+        "leo": false,
         "klara": true
       },
       "completedAt": {
-        "leo": "2026-05-06T15:05:07.752Z",
         "klara": "2026-05-06T15:07:06.789Z"
       }
     },
@@ -70,10 +68,12 @@
       "unit": "km",
       "date": "Sun May 7th",
       "completed": {
-        "leo": false,
+        "leo": true,
         "klara": false
       },
-      "completedAt": {}
+      "completedAt": {
+        "leo": "2026-05-07T12:06:49.704Z"
+      }
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
