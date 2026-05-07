@@ -15,7 +15,7 @@ export const getSessions = async () => {
  * PATCH specific fields of an existing session
  */
 export const updateSession = async (session_id: number, data: Partial<UpdateSession>) => {
-    const res = await axios.patch(`${BASE_URL}/sessions/${session_id}`, data);
+    const res = await axios.patch<Session>(`${BASE_URL}/sessions/${session_id}`, data);
     return res.data;
 };
 

@@ -1,5 +1,10 @@
 import { useSchedule } from "../context/ScheduleContext";
-import type { RaceTrackerProps } from "./TrainingLog";
+import type { Profile } from "../types/Session";
+
+export interface RaceTrackerProps {
+    profiles: Profile[];
+    type: "all" | "swim" | "bike" | "run";
+}
 
 const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
     const { sessions } = useSchedule();

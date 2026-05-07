@@ -8,8 +8,11 @@
     "server": "json-server --watch data/db.json --port 3000",
     "start": "concurrently \"npm run dev\" \"npm run server\"",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:0-lint": "eslint .",
+    "check:1-tsc": "tsc --noEmit --project tsconfig.app.json",
+    "check:2-type-coverage": "type-coverage --at-least 100 --detail --project tsconfig.app.json",
+    "check": "run-s check:*"
   },
   "dependencies": {
     "axios": "^1.16.0",
@@ -31,6 +34,8 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
     "json-server": "^1.0.0-beta.15",
+    "npm-run-all2": "^8.0.4",
+    "type-coverage": "^2.29.7",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.10"

@@ -1,20 +1,21 @@
 import { useSchedule } from "../context/ScheduleContext";
-import type { Profile, Person } from "../types/Session";
+import type { Person, Profile } from "../types/Session";
 import TrackerItem from "./TrackerItem";
-
-interface TrainingLogProps {
-    profiles: Profile[];
-    type: "all" | "swim" | "bike" | "run";
-}
 
 const formatDate = (date?: string) => {
     if (!date) return "";
+
     return new Date(date).toLocaleDateString("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
     });
 };
+
+export interface TrainingLogProps {
+    profiles: Profile[];
+    type: "all" | "swim" | "bike" | "run";
+}
 
 const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
     const { sessions, handleToggle } = useSchedule();
