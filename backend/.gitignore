@@ -41,3 +41,4 @@ coverage/
 
 # Optional: Docker
 .dockerignore
+/generated/prisma
