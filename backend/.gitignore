@@ -1,0 +1,43 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Prisma
+# Vi ignorerar den genererade klienten om du har valt att lägga den i en specifik mapp
+/generated/prisma
+# Ignorera sqlite fil om du skulle testa lokalt någon gång
+*.db
+*.db-journal
+
+# Environment variables
+# VÄLDIGT VIKTIGT: Ladda aldrig upp din riktiga .env!
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+# Ignorera mappen där din kompilerade kod hamnar
+dist/
+build/
+tsconfig.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Testing
+coverage/
+
+# Optional: Docker
+.dockerignore
