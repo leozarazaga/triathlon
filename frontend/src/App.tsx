@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MainContent from "./components/MainContent";
 import Sidebar from "./components/Sidebar";
+import BottomNavbar from "./components/BottomNavbar";
 
 const profiles = [
     { id: 1, name: "Leo", image: "src/assets/avatars/leo.jpeg", color: "#0d6efd" },
@@ -38,6 +39,7 @@ const App = () => {
 
                     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-4 overflow-auto h-100">
                         <MainContent activeView={activeView} profiles={profiles} />
+                        <BottomNavbar activeView={activeView} onViewChange={setActiveView} />
                     </main>
                 </div>
             </div>
