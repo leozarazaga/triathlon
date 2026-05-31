@@ -15,19 +15,20 @@ const badgeLabel: Record<SportType, string> = {
 interface TrackerItemProps {
     session: Session;
     person: Person;
-    onToggle: (person: Person, id: number) => void;
+    profileId: number; // New prop!
+    onToggle: (person: Person, userId: number, sessionId: number) => void;
 }
 
-const TrackerItem = ({ session, person, onToggle }: TrackerItemProps) => {
+const TrackerItem = ({ session, person, profileId, onToggle }: TrackerItemProps) => {
     const isCompleted = session.completed[person];
 
     return (
-        <div className="tracker-item d-flex align-items-center gap-2 py-2 cursor-pointer" onClick={() => onToggle(person, session.id)}>
+        <div className="tracker-item d-flex align-items-center gap-2 py-2 cursor-pointer" onClick={() => onToggle(person, profileId, session.id)}>
             <input
                 type="checkbox"
                 className="form-check-input mt-0"
                 checked={isCompleted}
-                onChange={() => onToggle(person, session.id)}
+                onChange={() => onToggle(person, profileId, session.id)}
                 onClick={(e) => e.stopPropagation()}
             />
 

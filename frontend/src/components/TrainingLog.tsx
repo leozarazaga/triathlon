@@ -4,13 +4,26 @@ import TrackerItem from "./TrackerItem";
 
 const formatDate = (date?: string) => {
     if (!date) return "";
-
     return new Date(date).toLocaleDateString("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
     });
 };
+
+const StatCard = ({ label, value, unit = "" }: { label: string; value: number; unit?: string }) => (
+    <div className="col-6">
+        <div className="p-3 bg-light rounded-4 border-0 h-100">
+            <div className="text-secondary text-uppercase fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.05em" }}>
+                {label}
+            </div>
+            <div className="d-flex align-items-baseline gap-1">
+                <span className="h2 mb-0 fw-bold">{value}</span>
+                {unit && <span className="text-muted small">{unit}</span>}
+            </div>
+        </div>
+    </div>
+);
 
 export interface TrainingLogProps {
     profiles: Profile[];
@@ -19,21 +32,18 @@ export interface TrainingLogProps {
 
 const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
     const { sessions, handleToggle } = useSchedule();
-
     const filteredSessions = type === "all" ? sessions : sessions.filter((s) => s.type === type);
 
     return (
         <div className="row g-4">
             {profiles.map((profile, index) => {
                 const personKey = profile.name.toLowerCase() as Person;
-
                 const completedSessions = filteredSessions.filter((s) => s.completed[personKey]);
                 const totalDistance = completedSessions.reduce((sum, s) => sum + s.distance, 0);
                 const unit = type === "swim" ? "m" : "km";
 
                 return (
                     <div key={profile.id} className={`col-12 col-md-6 ${index === 1 ? "border-md-start ps-md-4" : ""}`}>
-                        {/* Member Header */}
                         <div className="d-flex align-items-center gap-3 mb-4">
                             <img
                                 src={profile.image}
@@ -44,44 +54,17 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                             <h3 className="h5 mb-0 fw-bold">{profile.name}</h3>
                         </div>
 
-                        {/* View Switcher */}
                         {type === "all" ? (
                             <div className="list-group list-group-flush">
                                 {filteredSessions.map((s) => (
-                                    <TrackerItem key={s.id} session={s} person={personKey} onToggle={handleToggle} />
+                                    <TrackerItem key={s.id} session={s} person={personKey} profileId={profile.id} onToggle={handleToggle} />
                                 ))}
                             </div>
                         ) : (
                             <div className="ps-2">
-                                {/* Split Stat Cards */}
                                 <div className="row g-2 mb-4">
-                                    <div className="col-6">
-                                        <div className="p-3 bg-light rounded-4 border-0 h-100">
-                                            <div
-                                                className="text-secondary text-uppercase fw-bold mb-1"
-                                                style={{ fontSize: 10, letterSpacing: "0.05em" }}
-                                            >
-                                                Workouts
-                                            </div>
-                                            <div className="d-flex align-items-baseline  gap-1">
-                                                <span className="h2 mb-0 fw-bold">{completedSessions.length}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className="p-3 bg-light rounded-4 border-0 h-100">
-                                            <div
-                                                className="text-secondary text-uppercase fw-bold mb-1"
-                                                style={{ fontSize: 10, letterSpacing: "0.05em" }}
-                                            >
-                                                Distance
-                                            </div>
-                                            <div className="d-flex align-items-baseline gap-1">
-                                                <span className="h2 mb-0 fw-bold">{totalDistance}</span>
-                                                <span className="text-muted small">{unit}</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <StatCard label="Workouts" value={completedSessions.length} />
+                                    <StatCard label="Distance" value={totalDistance} unit={unit} />
                                 </div>
 
                                 {/* History List */}

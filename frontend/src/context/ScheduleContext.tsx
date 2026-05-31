@@ -1,11 +1,11 @@
 import { createContext, useContext } from "react";
-import type { Session } from "../types/Session";
+import type { Person, Session } from "../types/Session";
 
 export interface ScheduleContextType {
     sessions: Session[];
     isLoading: boolean;
     error: string | false;
-    handleToggle: (person: "leo" | "klara", id: number) => Promise<void>;
+    handleToggle: (person: Person, userId: number, sessionId: number) => Promise<void>;
 }
 
 export const ScheduleContext = createContext<ScheduleContextType | null>(null);
