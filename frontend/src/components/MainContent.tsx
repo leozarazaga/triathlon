@@ -9,41 +9,26 @@ interface MainContentProps {
 }
 
 const MainContent = ({ activeView, profiles }: MainContentProps) => {
-    switch (activeView) {
-        case "overview":
-            return (
-                <>
-                    <Overview profiles={profiles} />
-                    <TrainingLog profiles={profiles} type="all" />
-                </>
-            );
-        case "swimming":
-            return (
-                <>
-                    <h1 className="h2 pb-2 mb-3 border-bottom">Swimming</h1>
-                    <TrainingProgress profiles={profiles} type="swim" />
-                    <TrainingLog profiles={profiles} type="swim" />
-                </>
-            );
-        case "cycling":
-            return (
-                <>
-                    <h1 className="h2 pb-2 mb-3 border-bottom">Cycling</h1>
-                    <TrainingProgress profiles={profiles} type="bike" />
-                    <TrainingLog profiles={profiles} type="bike" />
-                </>
-            );
-        case "running":
-            return (
-                <>
-                    <h1 className="h2 pb-2 mb-3 border-bottom">Running</h1>
-                    <TrainingProgress profiles={profiles} type="run" />
-                    <TrainingLog profiles={profiles} type="run" />
-                </>
-            );
-        default:
-            return <Overview profiles={profiles} />;
+    if (activeView === "overview") {
+        return (
+            <>
+                <Overview profiles={profiles} />
+                <TrainingLog profiles={profiles} type="all" />
+            </>
+        );
     }
+
+    const sportType = activeView === "swimming" ? "swim" : activeView === "cycling" ? "bike" : "run";
+
+    const title = activeView.charAt(0).toUpperCase() + activeView.slice(1);
+
+    return (
+        <>
+            <h1 className="h2 pb-2 mb-3 border-bottom">{title}</h1>
+            <TrainingProgress profiles={profiles} type={sportType} />
+            <TrainingLog profiles={profiles} type={sportType} />
+        </>
+    );
 };
 
 export default MainContent;
