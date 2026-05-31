@@ -8,17 +8,38 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id               Int                 @id @default(autoincrement())
+  name             String              // "Leo" or "Klara"
+  completions      SessionCompletion[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Session {
+  id          Int                 @id @default(autoincrement())
+  type        SessionType         // SWIM, BIKE, RUN
+  description String              // Maps to your "desc" field
+  distance    Float               // Maps to your "dist" field
+  unit        String              // "m" or "km"
+  date        String              // Maps to your "Wed May 3rd" format
+  completions SessionCompletion[]
+}
+
+// This tracks individual completions for Leo and Klara
+model SessionCompletion {
+  id          Int       @id @default(autoincrement())
+  completedAt DateTime  @default(now())
+
+  // Relations
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId   Int
+  session     Session   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  // A user can only complete a specific session once
+  @@unique([userId, sessionId]) 
+}
+
+enum SessionType {
+  SWIM
+  BIKE
+  RUN
 }
