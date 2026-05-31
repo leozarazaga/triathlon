@@ -1,12 +1,8 @@
+import type { Profile } from "../types/Session";
 import TrainingProgress from "./TrainingProgress";
 
 interface OverviewProps {
-    profiles: {
-        id: number;
-        name: string;
-        image: string;
-        color: string;
-    }[];
+    profiles: Profile[];
 }
 
 const Overview = ({ profiles }: OverviewProps) => {
@@ -15,15 +11,17 @@ const Overview = ({ profiles }: OverviewProps) => {
             <div className="d-flex align-items-center pb-2 mb-3 border-bottom gap-3">
                 <h1 className="h2 me-auto">Overview</h1>
 
-                {/* Legend */}
-                <span className="d-flex align-items-center gap-1" style={{ fontSize: 14 }}>
-                    <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#0d6efd", display: "inline-block" }} />
-                    Leo
-                </span>
-                <span className="d-flex align-items-center gap-1" style={{ fontSize: 14 }}>
-                    <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#d63384", display: "inline-block" }} />
-                    Klara
-                </span>
+                {profiles.map((profile) => (
+                    <span key={profile.id} className="d-flex align-items-center gap-1" style={{ fontSize: 14 }}>
+                        <span 
+                            style={{ 
+                                width: 10, height: 10, borderRadius: "50%", 
+                                background: profile.color, display: "inline-block" 
+                            }} 
+                        />
+                        {profile.name}
+                    </span>
+                ))}
             </div>
             <TrainingProgress profiles={profiles} type="all" />
         </>
