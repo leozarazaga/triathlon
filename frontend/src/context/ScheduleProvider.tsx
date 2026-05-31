@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { getSessions, updateSession } from "../services/TriathlonAPI";
 import type { Session } from "../types/Session";
-import { ScheduleContext } from "./ScheduleContext"; 
+import { ScheduleContext } from "./ScheduleContext";
 
 export function ScheduleProvider({ children }: { children: ReactNode }) {
     const [sessions, setSessions] = useState<Session[]>([]);
@@ -34,17 +34,21 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
             [person]: isNowCompleted ? new Date().toISOString() : undefined,
         };
 
+        const userId = person === "leo" ? 1 : 2;
+
         try {
-            await updateSession(id, { completed: newCompleted, completedAt: newCompletedAt });
-            setSessions((prev) => prev.map((s) => (s.id === id ? { ...s, completed: newCompleted, completedAt: newCompletedAt } : s)));
+            await updateSession(id, { userId, isCompleted: isNowCompleted });
+            setSessions((prev) =>
+                prev.map((session) => (session.id === id ? { ...session, completed: newCompleted, completedAt: newCompletedAt } : session)),
+            );
         } catch (err) {
             console.error("Update failed:", err);
         }
     };
 
-    return (
+    return(
         <ScheduleContext.Provider value={{ sessions, isLoading, error, handleToggle }}>
             {children}
         </ScheduleContext.Provider>
-    )
+    ) 
 }

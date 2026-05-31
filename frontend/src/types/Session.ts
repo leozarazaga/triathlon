@@ -19,4 +19,12 @@ export interface Session {
     completedAt?: Partial<Record<Person, string>>;
 }
 
-export type UpdateSession = Omit<Session, "id">;
+export interface ApiResponse<T> {
+    status: string;
+    data: T;
+}
+
+export interface ToggleCompletionPayload {
+    userId: number;
+    isCompleted: boolean;
+}

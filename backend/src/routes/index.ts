@@ -1,5 +1,5 @@
 import express from "express";
-import sessionRouter from "./session"
+import sessionRouter from "./session";
 
 const router = express.Router();
 
@@ -13,11 +13,13 @@ router.get("/", (_req, res) => {
     });
 });
 
-router.use("/sessions", sessionRouter)
+// ---------- SESSION ROUTES ----------
 
+/**
+ * Routes for managing triathlon sessions.
+ */
 
-
-
+router.use("/sessions", sessionRouter);
 
 
 
@@ -39,6 +41,3 @@ router.use((req, res) => {
 });
 
 export default router;
-
-
-

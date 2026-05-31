@@ -11,7 +11,7 @@ import http from "http";
 const PORT = Number(process.env.PORT) || 3000;
 
 // Create a new debug instance
-const debug = Debug("prisma-photos:server");
+const debug = Debug("prisma-triathlon:server");
 
 /**
  * Create HTTP server.
