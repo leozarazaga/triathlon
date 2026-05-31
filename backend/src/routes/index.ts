@@ -1,4 +1,5 @@
 import express from "express";
+import sessionRouter from "./session"
 
 const router = express.Router();
 
@@ -11,6 +12,17 @@ router.get("/", (_req, res) => {
         message: "But first, let me take a selfie 🤳 https://www.youtube.com/watch?v=kdemFfbS5H0",
     });
 });
+
+router.use("/sessions", sessionRouter)
+
+
+
+
+
+
+
+
+
 
 /**
  * Catch-all route handler for undefined routes.
@@ -27,3 +39,6 @@ router.use((req, res) => {
 });
 
 export default router;
+
+
+
