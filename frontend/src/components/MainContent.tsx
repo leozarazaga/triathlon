@@ -1,6 +1,7 @@
 import type { Profile } from "../types/Session";
 import Overview from "./Overview";
 import TrainingLog from "./TrainingLog";
+import TrainingProgress from "./TrainingProgress";
 
 interface MainContentProps {
     activeView: string;
@@ -20,6 +21,7 @@ const MainContent = ({ activeView, profiles }: MainContentProps) => {
             return (
                 <>
                     <h1 className="h2 pb-2 mb-3 border-bottom">Swimming</h1>
+                    <TrainingProgress profiles={profiles} type="swim" />
                     <TrainingLog profiles={profiles} type="swim" />
                 </>
             );
@@ -27,6 +29,7 @@ const MainContent = ({ activeView, profiles }: MainContentProps) => {
             return (
                 <>
                     <h1 className="h2 pb-2 mb-3 border-bottom">Cycling</h1>
+                    <TrainingProgress profiles={profiles} type="bike" />
                     <TrainingLog profiles={profiles} type="bike" />
                 </>
             );
@@ -34,6 +37,7 @@ const MainContent = ({ activeView, profiles }: MainContentProps) => {
             return (
                 <>
                     <h1 className="h2 pb-2 mb-3 border-bottom">Running</h1>
+                    <TrainingProgress profiles={profiles} type="run" />
                     <TrainingLog profiles={profiles} type="run" />
                 </>
             );

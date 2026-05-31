@@ -39,7 +39,7 @@ model SessionCompletion {
 }
 
 enum SessionType {
-  SWIM
-  BIKE
-  RUN
+  swim
+  bike
+  run
 }

@@ -31,7 +31,7 @@ const TrackerItem = ({ session, person, onToggle }: TrackerItemProps) => {
                 onClick={(e) => e.stopPropagation()}
             />
 
-            <span className={`tracker-text ${isCompleted ? "is-completed" : "is-pending"}`}>{session.desc}</span>
+            <span className={`tracker-text ${isCompleted ? "is-completed" : "is-pending"}`}>{session.description}</span>
 
             <span className="badge rounded-pill" style={{ ...badgeStyle[session.type], fontSize: 11 }}>
                 {badgeLabel[session.type]}

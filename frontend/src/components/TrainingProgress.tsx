@@ -9,12 +9,12 @@ export interface RaceTrackerProps {
 const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
     const { sessions } = useSchedule();
 
-    const filtered = type === "all" ? sessions : sessions.filter((session) => session.type === type);
+    const filtered = type === "all" ? sessions : sessions.filter((session) => session.type === type) || [];
     const typeLabel = type === "all" ? "Total — All Sports" : type === "swim" ? "Swimming" : type === "bike" ? "Cycling" : "Running";
 
     const getPercentage = (name: string) => {
         const key = name.toLowerCase() as "leo" | "klara";
-        const done = filtered.filter((session) => session.completed[key]).length;
+        const done = filtered.filter((session) => session.completed[key]).length ;
         return filtered.length ? Math.round((done / filtered.length) * 100) : 0;
     };
 

@@ -11,8 +11,8 @@ export interface Profile {
 export interface Session {
     id: number;
     type: SportType;
-    desc: string;
-    dist: number;
+    description: string;
+    distance: number;
     unit: "m" | "km";
     date: string;
     completed: Record<Person, boolean>;

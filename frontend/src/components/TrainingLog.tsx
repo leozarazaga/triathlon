@@ -28,7 +28,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                 const personKey = profile.name.toLowerCase() as Person;
 
                 const completedSessions = filteredSessions.filter((s) => s.completed[personKey]);
-                const totalDistance = completedSessions.reduce((sum, s) => sum + s.dist, 0);
+                const totalDistance = completedSessions.reduce((sum, s) => sum + s.distance, 0);
                 const unit = type === "swim" ? "m" : "km";
 
                 return (
@@ -99,7 +99,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                                 <div key={s.id} className="p-2 border-bottom d-flex justify-content-between align-items-center">
                                                     <div>
                                                         <div className="fw-medium" style={{ fontSize: 14 }}>
-                                                            {s.desc}
+                                                            {s.description}
                                                         </div>
                                                         <div className="text-muted" style={{ fontSize: 11 }}>
                                                             {formatDate(s.completedAt?.[personKey])}
