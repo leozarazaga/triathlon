@@ -178,9 +178,6 @@ h6 {
     }
 }
 
-/* ======================================
-    MEDIA QUERIES (max-width: 480px)
-========================================= */
 @media screen and (max-width: 480px) {
     .bottom-nav-container {
         bottom: 15px;
@@ -203,6 +200,187 @@ h6 {
                     }
                 }
             }
+        }
+    }
+}
+
+/* ========================================
+          NIKE HERO STAT (Overview)
+========================================= */
+
+.nike-hero-stat {
+    font-size: 4.5rem;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: -2px;
+    color: #f93822;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 576px) {
+        font-size: 3.5rem;
+    }
+}
+
+.race-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.25rem;
+}
+
+.race-date {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #8e8e93;
+    margin-bottom: 2.5rem;
+}
+
+/* ========================================
+          NIKE HEADER & ACCORDION
+========================================= */
+
+.nike-header {
+    .weeks-to-go {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: #111;
+        margin-bottom: 4px;
+    }
+
+    .subtitle {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #888;
+        margin-bottom: 24px;
+    }
+}
+
+.segmented-progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+
+    .segment {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background-color: #e5e5ea;
+        transition: background-color 0.3s ease;
+
+        &.completed {
+            background-color: #88c9a1;
+        }
+    }
+}
+
+.week-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0 8px 0;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    h4 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+        color: #111;
+    }
+
+    .chevron {
+        font-size: 12px;
+        color: #888;
+        transition: transform 0.3s ease;
+
+        &.open {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+/* ========================================
+          NIKE STYLE WORKOUT CARDS
+========================================= */
+
+.nike-workout-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #f5f5f5;
+    transition: transform 0.1s ease;
+
+    .workout-icon-block {
+        width: 75px;
+        height: 75px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    .workout-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .workout-subtitle {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 2px;
+        }
+
+        .workout-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #111;
+            margin: 0 0 2px 0;
+        }
+
+        .workout-meta {
+            font-size: 14px;
+            color: #888;
+        }
+    }
+}
+
+.completion-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid #e5e5ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    svg {
+        display: none;
+        width: 16px;
+        height: 16px;
+        fill: white;
+    }
+
+    &.is-completed {
+        background-color: #88c9a1;
+        border-color: #88c9a1;
+
+        svg {
+            display: block;
         }
     }
 }

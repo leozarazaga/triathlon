@@ -1,42 +1,49 @@
 import type { Session, Person, SportType } from "../types/Session";
 
-const badgeStyle: Record<SportType, { background: string; color: string }> = {
-    swim: { background: "#cfe2ff", color: "#084298" },
-    bike: { background: "#ffe5d0", color: "#7d3800" },
-    run: { background: "#d1e7dd", color: "#0a3622" },
+const sportColors: Record<SportType, string> = {
+    run: "#f93822",
+    bike: "#bbed21",
+    swim: "#0055ff",
 };
 
-const badgeLabel: Record<SportType, string> = {
-    swim: "Swim",
-    bike: "Bike",
-    run: "Run",
+const sportIcons: Record<SportType, string> = {
+    run: "🏃",
+    bike: "🚴",
+    swim: "🏊",
 };
 
 interface TrackerItemProps {
     session: Session;
     person: Person;
-    profileId: number; // New prop!
+    profileId: number;
     onToggle: (person: Person, userId: number, sessionId: number) => void;
 }
 
 const TrackerItem = ({ session, person, profileId, onToggle }: TrackerItemProps) => {
     const isCompleted = session.completed[person];
 
+    const cleanDescription = session.description.replace(/\[W\d+\]\s*/i, "").trim();
+
     return (
-        <div className="tracker-item d-flex align-items-center gap-2 py-2 cursor-pointer" onClick={() => onToggle(person, profileId, session.id)}>
-            <input
-                type="checkbox"
-                className="form-check-input mt-0"
-                checked={isCompleted}
-                onChange={() => onToggle(person, profileId, session.id)}
-                onClick={(e) => e.stopPropagation()}
-            />
+        <div className="nike-workout-card" onClick={() => onToggle(person, profileId, session.id)}>
+            <div className="workout-icon-block" style={{ backgroundColor: sportColors[session.type] }}>
+                {sportIcons[session.type]}
+            </div>
 
-            <span className={`tracker-text ${isCompleted ? "is-completed" : "is-pending"}`}>{session.description}</span>
+            <div className="workout-details">
+                <span className="workout-subtitle">{session.type.toUpperCase()}</span>
+                <h4 className="workout-title">{cleanDescription}</h4>
+                <span className="workout-meta">
+                    {session.distance} {session.unit}
+                </span>
+            </div>
 
-            <span className="badge rounded-pill" style={{ ...badgeStyle[session.type], fontSize: 11 }}>
-                {badgeLabel[session.type]}
-            </span>
+            {/* Right: Custom Checkmark Circle */}
+            <div className={`completion-circle ${isCompleted ? "is-completed" : ""}`}>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                </svg>
+            </div>
         </div>
     );
 };
