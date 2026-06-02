@@ -24,15 +24,16 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
                 <div className="text-uppercase fw-semibold text-secondary" style={{ fontSize: 11, letterSpacing: ".05em" }}>
                     {typeLabel}
                 </div>
-                <span className="fs-3">🏁</span>
+                
             </div>
 
-            <div className="px-3">
+            {/* Added pr-4 (or pe-4 in Bootstrap 5) to make room for the flag at the end of the track */}
+            <div className="px-3 pe-5 position-relative">
                 {profiles.map((profile) => {
                     const percentage = getPercentage(profile.name);
 
                     return (
-                        <div key={profile.id} className="race-tracker-lane position-relative d-flex align-items-center mb-4">
+                        <div key={profile.id} className="race-tracker-lane position-relative d-flex align-items-center mb-5">
                             <div className="track-bg w-100 bg-secondary bg-opacity-25 rounded-pill">
                                 <div className="track-progress" style={{ width: `${percentage}%`, backgroundColor: profile.color }} />
                             </div>
@@ -49,12 +50,20 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
                         </div>
                     );
                 })}
+
+                
+                <div 
+                    className="position-absolute end-0 top-50   translate-middle-y fs-3 pe-2" 
+                    style={{ zIndex: 2, marginTop: '-25px' }} // Minor tweak to align perfectly with the middle of the lanes
+                >
+                    🏁
+                </div>
             </div>
 
-            <div className="d-flex justify-content-between mt-2 px-3 text-secondary fw-medium small">
+            <div className="d-flex flex-column mt-2 px-3 text-secondary fw-medium strong">
                 {profiles.map((profile) => (
                     <span key={profile.id}>
-                        {profile.name} {getPercentage(profile.name)}%
+                        {profile.name}: {getPercentage(profile.name)}%
                     </span>
                 ))}
             </div>
