@@ -25,7 +25,6 @@ const TrackerItem = ({ session, person, profileId, onToggle }: TrackerItemProps)
     const cleanDescription = session.description.replace(/\[W\d+\]\s*/i, "").trim();
 
     return (
-        // UX FIX: Removed the onClick from the parent card container
         <div className="workout-card" style={{ cursor: "default" }}>
             <div className="workout-icon-block" style={{ backgroundColor: sportColors[session.type] }}>
                 {sportIcons[session.type]}

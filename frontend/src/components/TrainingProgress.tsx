@@ -19,20 +19,22 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
     };
 
     return (
-        <div className="card border rounded-3 p-3 mb-4 overflow-hidden">
+        <div className="mb-5 pb-3">
+            {/* =============== PROGRESS TITLE =============== */}
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <div className="text-uppercase fw-semibold text-secondary" style={{ fontSize: 11, letterSpacing: ".05em" }}>
+                <div className="text-uppercase fw-bold text-secondary" style={{ fontSize: 12, letterSpacing: ".1em" }}>
                     {typeLabel}
                 </div>
             </div>
 
-            <div className="px-3 pe-5 position-relative">
+            {/* =============== SKEWED TRACKS CONTAINER =============== */}
+            <div className="pe-5 position-relative">
                 {profiles.map((profile) => {
                     const percentage = getPercentage(profile.name);
 
                     return (
                         <div key={profile.id} className="race-tracker-lane position-relative d-flex align-items-center mb-5">
-                            <div className="track-bg w-100 bg-secondary bg-opacity-25 rounded-pill">
+                            <div className="track-bg w-100">
                                 <div className="track-progress" style={{ width: `${percentage}%`, backgroundColor: profile.color }} />
                             </div>
 
@@ -41,24 +43,39 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
                                 alt={profile.name}
                                 className="racer-avatar rounded-circle"
                                 style={{
-                                    left: `calc(${percentage}% - 22px)`,
-                                    border: `2px solid ${profile.color}`,
+                                    left: `calc(${percentage}% - 24px)`,
+                                    border: `3px solid ${profile.color}`,
                                 }}
                             />
                         </div>
                     );
                 })}
 
-                <div className="position-absolute end-0 top-50 translate-middle-y fs-3 pe-2" style={{ zIndex: 2, marginTop: "-25px" }}>
+                <div className="position-absolute end-0 top-50 translate-middle-y fs-3 pe-2" style={{ zIndex: 2, marginTop: "-2px", opacity: 0.8 }}>
                     🏁
                 </div>
             </div>
 
-            <div className="d-flex flex-column mt-2 px-3 text-secondary fw-medium strong">
+            {/* =============== STAT LABELS =============== */}
+            <div className="d-flex gap-5 mt-2">
                 {profiles.map((profile) => (
-                    <span key={profile.id}>
-                        {profile.name}: {getPercentage(profile.name)}%
-                    </span>
+                    <div key={profile.id} className="d-flex flex-column">
+                        <span className="text-uppercase fw-bold text-secondary mb-1" style={{ fontSize: 11, letterSpacing: "0.05em" }}>
+                            {profile.name}
+                        </span>
+                        <span
+                            style={{
+                                fontSize: "2rem",
+                                fontWeight: 900,
+                                fontStyle: "italic",
+                                lineHeight: 1,
+                                letterSpacing: "-1px",
+                                color: profile.color,
+                            }}
+                        >
+                            {getPercentage(profile.name)}%
+                        </span>
+                    </div>
                 ))}
             </div>
         </div>

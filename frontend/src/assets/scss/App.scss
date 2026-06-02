@@ -14,24 +14,32 @@ h6 {
 ========================================= */
 
 .race-tracker-lane {
+    position: relative;
+    display: flex;
+    align-items: center;
+
     .track-bg {
-        height: 8px;
+        height: 12px;
+        transform: skewX(-20deg);
+        background-color: #f1f3f5;
+        border-radius: 2px;
+        overflow: hidden;
     }
 
     .track-progress {
         height: 100%;
-        border-radius: 50rem;
-        transition: width 0.5s ease;
+        transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .racer-avatar {
         position: absolute;
-        width: 44px;
-        height: 44px;
+        width: 48px;
+        height: 48px;
         object-fit: cover;
         background-color: #ffffff;
-        transition: left 0.5s ease;
+        transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         z-index: 2;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 }
 
