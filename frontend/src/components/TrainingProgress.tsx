@@ -28,14 +28,17 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
             </div>
 
             {/* =============== SKEWED TRACKS CONTAINER =============== */}
-            <div className="pe-5 position-relative">
+            <div className="pe-4 position-relative">
                 {profiles.map((profile) => {
                     const percentage = getPercentage(profile.name);
 
                     return (
                         <div key={profile.id} className="race-tracker-lane position-relative d-flex align-items-center mb-5">
-                            <div className="track-bg w-100">
+                            <div className="track-bg w-100 position-relative">
                                 <div className="track-progress" style={{ width: `${percentage}%`, backgroundColor: profile.color }} />
+
+                                {/* =============== FINISH LINE STRIP =============== */}
+                                <div className="finish-line-strip" />
                             </div>
 
                             <img
@@ -50,10 +53,6 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
                         </div>
                     );
                 })}
-
-                <div className="position-absolute end-0 top-50 translate-middle-y fs-3 pe-2" style={{ zIndex: 2, marginTop: "-2px", opacity: 0.8 }}>
-                    🏁
-                </div>
             </div>
 
             {/* =============== STAT LABELS =============== */}
