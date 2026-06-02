@@ -1,4 +1,5 @@
 import type { Session, Person, SportType } from "../types/Session";
+import React from "react";
 
 const sportColors: Record<SportType, string> = {
     run: "#f93822",
@@ -6,10 +7,10 @@ const sportColors: Record<SportType, string> = {
     swim: "#0055ff",
 };
 
-const sportIcons: Record<SportType, string> = {
-    run: "🏃",
-    bike: "🚴",
-    swim: "🏊",
+const sportIcons: Record<SportType, React.ReactNode> = {
+    run: <i className="fa-solid fa-person-running text-white"></i>,
+    bike: <i className="fa-solid fa-person-biking text-white"></i>,
+    swim: <i className="fa-solid fa-person-swimming fa-flip-horizontal text-white"></i>,
 };
 
 interface TrackerItemProps {
