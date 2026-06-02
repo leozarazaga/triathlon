@@ -81,10 +81,10 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
         <div className="w-100 mt-1">
             {/* =============== SECTION PAGE TITLE =============== */}
             {type !== "all" && (
-                <div className="mb-4 border-bottom pb-3">
+                <div className="mb-4 border-bottom">
                     <h1
                         style={{
-                            fontSize: "4.5rem",
+                            fontSize: "4rem",
                             fontWeight: 900,
                             fontStyle: "italic",
                             lineHeight: 0.9,
