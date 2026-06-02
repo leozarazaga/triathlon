@@ -274,19 +274,17 @@ h6 {
 ========================================= */
 
 .traininglog-header {
+    margin-bottom: 2rem;
     .weeks-to-go {
         font-size: 2.5rem;
         font-weight: 800;
         letter-spacing: -1px;
         color: #111;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
 
     .subtitle {
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: #888;
-        margin-bottom: 24px;
+        letter-spacing: -0.2px;
     }
 }
 

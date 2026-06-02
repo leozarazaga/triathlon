@@ -170,21 +170,14 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
 
                             {/* =============== COUNTDOWN HEADER vs SPORT STATS =============== */}
                             {type === "all" ? (
-                                <div className="traininglog-header mb-4">
+                                <div className="traininglog-header">
                                     <h2 className="weeks-to-go">{weeksToGo} Weeks to Go</h2>
-                                    <p className="subtitle">Welcome to the Starting Line</p>
-
-                                    <div className="segmented-progress">
-                                        {[...Array(5)].map((_, i) => {
-                                            const percentComplete = totalWorkouts === 0 ? 0 : completedCount / totalWorkouts;
-                                            const segmentThreshold = (i + 1) * 0.2;
-                                            const isCompleted = percentComplete >= segmentThreshold - 0.1;
-                                            return <div key={i} className={`segment ${isCompleted ? "completed" : ""}`} />;
-                                        })}
-                                    </div>
-                                    <div className="text-muted" style={{ fontSize: 13, fontWeight: 500 }}>
-                                        Workouts Completed: {completedCount} of {totalWorkouts}
-                                    </div>
+                                    <p className="subtitle mb-0" style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>
+                                        Workouts Completed:{" "}
+                                        <span style={{ color: "#111", fontWeight: 700 }}>
+                                            {completedCount} of {totalWorkouts}
+                                        </span>
+                                    </p>
                                 </div>
                             ) : (
                                 <div className="ps-1">
@@ -223,10 +216,6 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                             {/* =============== DYNAMIC WORKOUT LIST RENDERING =============== */}
                             {type === "all" ? (
                                 <div className="workout-list-container mt-4">
-                                    <h3 className="h6 fw-bold mb-3 text-uppercase" style={{ letterSpacing: "0.05em" }}>
-                                        To do this week
-                                    </h3>
-
                                     {weekKeys.length === 0 ? (
                                         <p className="text-muted small py-3 text-center border rounded-3 bg-light bg-opacity-50">
                                             🎉 All workouts completed for this view!
