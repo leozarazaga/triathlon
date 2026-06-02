@@ -9,7 +9,6 @@ const sportColors: Record<string, string> = {
     swim: "#0055ff", // Nike Racer Blue
 };
 
-// Helper to group sessions by the [W1], [W2] tags in your descriptions
 const groupSessionsByWeek = (sessions: Session[]) => {
     const groups: Record<string, Session[]> = {};
     sessions.forEach((s) => {
@@ -21,7 +20,6 @@ const groupSessionsByWeek = (sessions: Session[]) => {
     return groups;
 };
 
-// Collapsible Accordion Component
 const WeeklyGroup = ({
     title,
     sessions,
@@ -66,20 +64,25 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
     const { sessions, handleToggle } = useSchedule();
     const filteredSessions = type === "all" ? sessions : sessions.filter((s) => s.type === type);
 
-    // Calculate Weeks until August 2, 2026
+    // --- UX STATE: "all" shows both, otherwise contains specific profile.id ---
+    const [activeProfileFilter, setActiveProfileFilter] = useState<"all" | number>("all");
+
     const raceDate = new Date("2026-08-02T00:00:00");
     const today = new Date();
     const msPerWeek = 1000 * 60 * 60 * 24 * 7;
     const weeksToGo = Math.max(0, Math.ceil((raceDate.getTime() - today.getTime()) / msPerWeek));
 
-    // Get display label for sports
     const sportLabel = type === "swim" ? "Swimming" : type === "bike" ? "Cycling" : type === "run" ? "Running" : "";
+
+    // Filter the rendering loop array based on our segment button selection
+    const displayedProfiles = activeProfileFilter === "all" 
+        ? profiles 
+        : profiles.filter(p => p.id === activeProfileFilter);
 
     return (
         <div className="w-100 mt-1">
-            {/* Massive Nike Style Header for Single Sports */}
             {type !== "all" && (
-                <div className="mb-5 border-bottom pb-3">
+                <div className="mb-4 border-bottom pb-3">
                     <h1 
                         style={{ 
                             fontSize: "4.5rem", 
@@ -96,11 +99,46 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                 </div>
             )}
 
-            <div className="row g-4">
-                {profiles.map((profile, index) => {
+            {/* --- UI COMPONENT: Premium User Filter Tabs --- */}
+            <div className="d-flex justify-content-start align-items-center mb-5 p-1 bg-light rounded-4" style={{ maxWidth: "fit-content" }}>
+                <button
+                    onClick={() => setActiveProfileFilter("all")}
+                    className="btn px-4 py-2 rounded-3 fw-bold text-uppercase transition-all text-nowrap"
+                    style={{
+                        fontSize: "12px",
+                        letterSpacing: "0.5px",
+                        backgroundColor: activeProfileFilter === "all" ? "#111" : "transparent",
+                        color: activeProfileFilter === "all" ? "#fff" : "#666",
+                        border: "none",
+                        boxShadow: activeProfileFilter === "all" ? "0px 4px 12px rgba(0,0,0,0.1)" : "none"
+                    }}
+                >
+                    Both Athletes
+                </button>
+                {profiles.map((profile) => (
+                    <button
+                        key={profile.id}
+                        onClick={() => setActiveProfileFilter(profile.id)}
+                        className="btn px-4 py-2 rounded-3 fw-bold text-uppercase transition-all text-nowrap"
+                        style={{
+                            fontSize: "12px",
+                            letterSpacing: "0.5px",
+                            backgroundColor: activeProfileFilter === profile.id ? "#111" : "transparent",
+                            color: activeProfileFilter === profile.id ? "#fff" : "#666",
+                            border: "none",
+                            boxShadow: activeProfileFilter === profile.id ? "0px 4px 12px rgba(0,0,0,0.1)" : "none"
+                        }}
+                    >
+                        {profile.name}
+                    </button>
+                ))}
+            </div>
+
+            {/* --- LAYOUT GRID: Handles layout shift dynamically --- */}
+            <div className="row g-5">
+                {displayedProfiles.map((profile) => {
                     const personKey = profile.name.toLowerCase() as Person;
 
-                    // Progress calculations
                     const totalWorkouts = filteredSessions.length;
                     const completedSessions = filteredSessions.filter((s) => s.completed[personKey]);
                     const completedCount = completedSessions.length;
@@ -108,25 +146,32 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                     const totalDistance = completedSessions.reduce((sum, s) => sum + (s.distance || s.distance || 0), 0);
                     const unit = type === "swim" ? "m" : "km";
 
-                    // Group the sessions for this specific user
-                    const groupedSessions = groupSessionsByWeek(filteredSessions);
+                    const activeTodoSessions = filteredSessions.filter((s) => !s.completed[personKey]);
+                    const groupedSessions = groupSessionsByWeek(type === "all" ? activeTodoSessions : completedSessions);
                     const weekKeys = Object.keys(groupedSessions).sort();
 
+                    // If we isolate down to a single user, make that column take up full width (col-12), else split it (col-md-6)
+                    const columnClass = displayedProfiles.length === 1 
+                        ? "col-12 max-width-container" 
+                        : "col-12 col-md-6";
+
+                    // Handle middle border styling dynamically
+                    const borderClass = displayedProfiles.length > 1 && profiles.indexOf(profile) === 1 
+                        ? "border-md-start ps-md-5" 
+                        : "";
+
                     return (
-                        <div key={profile.id} className={`col-12 col-md-6 ${index === 1 ? "border-md-start ps-md-4" : ""}`}>
-                            {/* Member Profile Avatar */}
+                        <div key={profile.id} className={`${columnClass} ${borderClass}`}>
                             <div className="d-flex align-items-center gap-3 mb-4">
                                 <img
                                     src={profile.image}
                                     alt={profile.name}
                                     className="rounded-circle border border-2 shadow-sm"
-                                    style={{ width: 48, height: 48, objectFit: "cover", borderColor: profile.color }}/>
-
-                               
-                                <h3 className="h5 mb-0 fw-bold">{profile.name}</h3>
+                                    style={{ width: 56, height: 56, objectFit: "cover", borderColor: profile.color }}
+                                />
+                                <h3 className="h4 mb-0 fw-bold" style={{ letterSpacing: "-0.5px" }}>{profile.name}</h3>
                             </div>
 
-                            {/* Dynamic Header vs Card Grid Layout */}
                             {type === "all" ? (
                                 <div className="nike-header mb-4">
                                     <h2 className="weeks-to-go">{weeksToGo} Weeks to Go</h2>
@@ -145,15 +190,11 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="ps-2">
-                                    {/* Restored Clean Balanced Card Grid layout from old code */}
-                                    <div className="row g-2 mb-4">
+                                <div className="ps-1">
+                                    <div className="row g-3 mb-4">
                                         <div className="col-6">
                                             <div className="p-3 bg-light rounded-4 border-0 h-100">
-                                                <div
-                                                    className="text-secondary text-uppercase fw-bold mb-1"
-                                                    style={{ fontSize: 10, letterSpacing: "0.05em" }}
-                                                >
+                                                <div className="text-secondary text-uppercase fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.05em" }}>
                                                     Workouts
                                                 </div>
                                                 <div className="d-flex align-items-baseline gap-1">
@@ -163,10 +204,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                         </div>
                                         <div className="col-6">
                                             <div className="p-3 bg-light rounded-4 border-0 h-100">
-                                                <div
-                                                    className="text-secondary text-uppercase fw-bold mb-1"
-                                                    style={{ fontSize: 10, letterSpacing: "0.05em" }}
-                                                >
+                                                <div className="text-secondary text-uppercase fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.05em" }}>
                                                     Distance
                                                 </div>
                                                 <div className="d-flex align-items-baseline gap-1">
@@ -179,48 +217,62 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                 </div>
                             )}
 
-                            {/* Dynamic List Rendering */}
                             {type === "all" ? (
                                 <div className="workout-list-container mt-4">
                                     <h3 className="h6 fw-bold mb-3 text-uppercase" style={{ letterSpacing: "0.05em" }}>
                                         To do this week
                                     </h3>
 
-                                    {weekKeys.map((week, idx) => {
-                                        const isFirst = idx === 0;
-                                        return (
-                                            <WeeklyGroup
-                                                key={week}
-                                                title={week}
-                                                sessions={groupedSessions[week]}
-                                                personKey={personKey}
-                                                profileId={profile.id}
-                                                onToggle={handleToggle}
-                                                defaultOpen={isFirst}
-                                            />
-                                        );
-                                    })}
+                                    {weekKeys.length === 0 ? (
+                                        <p className="text-muted small py-3 text-center border rounded-3 bg-light bg-opacity-50">
+                                            🎉 All workouts completed for this view!
+                                        </p>
+                                    ) : (
+                                        weekKeys.map((week, idx) => {
+                                            const isFirst = idx === 0;
+                                            return (
+                                                <WeeklyGroup
+                                                    key={week}
+                                                    title={week}
+                                                    sessions={groupedSessions[week]}
+                                                    personKey={personKey}
+                                                    profileId={profile.id}
+                                                    onToggle={handleToggle}
+                                                    defaultOpen={isFirst}
+                                                />
+                                            );
+                                        })
+                                    )}
                                 </div>
                             ) : (
-                                <div className="workout-list-container mt-4 ps-2">
+                                <div className="workout-list-container mt-4 ps-1">
                                     <h4 className="small text-uppercase fw-bold text-secondary mb-3" style={{ letterSpacing: "0.05em" }}>
                                         Completed History
                                     </h4>
                                     
-                                    {completedCount === 0 ? (
+                                    {weekKeys.length === 0 ? (
                                         <p className="text-muted small py-3 text-center border rounded-3 bg-light bg-opacity-50">
                                             No sessions completed yet.
                                         </p>
                                     ) : (
-                                        <div className="d-flex flex-column gap-2">
-                                            {completedSessions.map((s) => (
-                                                <TrackerItem
-                                                    key={s.id}
-                                                    session={s}
-                                                    person={personKey}
-                                                    profileId={profile.id}
-                                                    onToggle={handleToggle}
-                                                />
+                                        <div className="d-flex flex-column gap-4">
+                                            {weekKeys.map((week) => (
+                                                <div key={week}>
+                                                    <div className="text-muted small fw-bold text-uppercase mb-2" style={{ letterSpacing: '0.05em', fontSize: '11px' }}>
+                                                        {week}
+                                                    </div>
+                                                    <div className="d-flex flex-column gap-2">
+                                                        {groupedSessions[week].map((s) => (
+                                                            <TrackerItem
+                                                                key={s.id}
+                                                                session={s}
+                                                                person={personKey}
+                                                                profileId={profile.id}
+                                                                onToggle={handleToggle}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </div>
                                             ))}
                                         </div>
                                     )}
