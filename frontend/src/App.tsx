@@ -18,18 +18,6 @@ const App = () => {
                     <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
                         Triathlon Tracker
                     </a>
-
-                    <button
-                        className="navbar-toggler d-md-none collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#sidebarMenu"
-                        aria-controls="sidebarMenu"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
                 </div>
             </nav>
 
