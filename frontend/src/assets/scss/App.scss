@@ -236,32 +236,6 @@ h6 {
     }
 }
 
-@media screen and (max-width: 480px) {
-    .bottom-nav-container {
-        bottom: 15px;
-
-        .bottom-nav {
-            width: auto;
-            padding: 0;
-
-            .menu {
-                padding: 12px 20px;
-                justify-content: center;
-                column-gap: 15px;
-                width: auto;
-                border-radius: 40px;
-
-                li a {
-                    i {
-                        font-size: 1.1rem;
-                        padding: 8px;
-                    }
-                }
-            }
-        }
-    }
-}
-
 /* ========================================
          HERO STAT (Overview)
 ========================================= */
@@ -399,18 +373,31 @@ h6 {
             font-size: 13px;
             color: #888;
             margin-bottom: 2px;
+
+            @media (max-width: 576px) {
+                font-size: 0.75rem;
+            }
         }
 
-        .workout-title {
-            font-size: 17px;
-            font-weight: 600;
+        .workout-description {
+            font-size: 0.95rem;
+            font-weight: 500;
             color: #111;
-            margin: 0 0 2px 0;
+            margin: 0 0 4px 0;
+            line-height: 1.4;
+
+            @media (max-width: 576px) {
+                font-size: 0.85rem;
+            }
         }
 
         .workout-meta {
             font-size: 14px;
             color: #888;
+
+            @media (max-width: 576px) {
+                font-size: 0.85rem;
+            }
         }
     }
 }

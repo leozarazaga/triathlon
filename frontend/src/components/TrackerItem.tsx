@@ -32,7 +32,7 @@ const TrackerItem = ({ session, person, profileId, onToggle }: TrackerItemProps)
 
             <div className="workout-details">
                 <span className="workout-subtitle">{session.type.toUpperCase()}</span>
-                <h4 className="workout-title">{cleanDescription}</h4>
+                <h4 className="workout-description">{cleanDescription}</h4>
                 <span className="workout-meta">
                     {session.distance} {session.unit}
                 </span>
