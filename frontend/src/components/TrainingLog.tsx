@@ -218,7 +218,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                 <div className="workout-list-container mt-4">
                                     {weekKeys.length === 0 ? (
                                         <p className="text-muted small py-3 text-center border rounded-3 bg-light bg-opacity-50">
-                                            🎉 All workouts completed for this view!
+                                            All workouts completed!
                                         </p>
                                     ) : (
                                         weekKeys.map((week, idx) => {
