@@ -25,7 +25,8 @@ const TrackerItem = ({ session, person, profileId, onToggle }: TrackerItemProps)
     const cleanDescription = session.description.replace(/\[W\d+\]\s*/i, "").trim();
 
     return (
-        <div className="nike-workout-card" onClick={() => onToggle(person, profileId, session.id)}>
+        // UX FIX: Removed the onClick from the parent card container
+        <div className="workout-card" style={{ cursor: "default" }}>
             <div className="workout-icon-block" style={{ backgroundColor: sportColors[session.type] }}>
                 {sportIcons[session.type]}
             </div>
@@ -38,8 +39,11 @@ const TrackerItem = ({ session, person, profileId, onToggle }: TrackerItemProps)
                 </span>
             </div>
 
-            {/* Right: Custom Checkmark Circle */}
-            <div className={`completion-circle ${isCompleted ? "is-completed" : ""}`}>
+            <div
+                className={`completion-circle ${isCompleted ? "is-completed" : ""}`}
+                onClick={() => onToggle(person, profileId, session.id)}
+                style={{ cursor: "pointer" }}
+            >
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
                 </svg>

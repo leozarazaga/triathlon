@@ -9,7 +9,7 @@ const Overview = ({ profiles }: OverviewProps) => {
     return (
         <div className="mt-2">
             <div className="mb-4">
-                <h1 className="nike-hero-stat">
+                <h1 className="hero-stat">
                     MALMÖ
                     <br />
                     TRIATHLON

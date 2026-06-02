@@ -15,7 +15,16 @@ const App = () => {
         <div className="vh-100 d-flex flex-column">
             <nav className="navbar navbar-expand-md navbar-dark bg-dark flex-md-nowrap p-2 shadow">
                 <div className="container-fluid">
-                    <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+                    <a 
+                        className="navbar-brand col-md-3 col-lg-2 me-0 px-3" 
+                        href="#"
+                        style={{
+                            fontWeight: 900,
+                            fontStyle: "italic",
+                            textTransform: "uppercase",
+                            letterSpacing: "-0.5px"
+                        }}
+                    >
                         Triathlon Tracker
                     </a>
                 </div>

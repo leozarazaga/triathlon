@@ -9,6 +9,10 @@ h6 {
     margin-bottom: 0.5em;
 }
 
+/* ========================================
+             TRAINING PROGRESS 
+========================================= */
+
 .race-tracker-lane {
     .track-bg {
         height: 8px;
@@ -231,10 +235,10 @@ h6 {
 }
 
 /* ========================================
-          NIKE HERO STAT (Overview)
+         HERO STAT (Overview)
 ========================================= */
 
-.nike-hero-stat {
+.hero-stat {
     font-size: 4.5rem;
     font-weight: 900;
     font-style: italic;
@@ -264,10 +268,10 @@ h6 {
 }
 
 /* ========================================
-          NIKE HEADER & ACCORDION
+           HEADER & ACCORDION
 ========================================= */
 
-.nike-header {
+.traininglog-header {
     .weeks-to-go {
         font-size: 2.5rem;
         font-weight: 800;
@@ -335,10 +339,10 @@ h6 {
 }
 
 /* ========================================
-          NIKE STYLE WORKOUT CARDS
+          STYLE WORKOUT CARDS
 ========================================= */
 
-.nike-workout-card {
+.workout-card {
     display: flex;
     align-items: center;
     gap: 16px;

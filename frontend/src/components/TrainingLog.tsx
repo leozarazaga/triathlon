@@ -170,7 +170,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
 
                             {/* =============== COUNTDOWN HEADER vs SPORT STATS =============== */}
                             {type === "all" ? (
-                                <div className="nike-header mb-4">
+                                <div className="traininglog-header mb-4">
                                     <h2 className="weeks-to-go">{weeksToGo} Weeks to Go</h2>
                                     <p className="subtitle">Welcome to the Starting Line</p>
 
@@ -269,10 +269,10 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                                         {week}
                                                     </div>
                                                     <div className="d-flex flex-column gap-2">
-                                                        {groupedSessions[week].map((s) => (
+                                                        {groupedSessions[week].map((session) => (
                                                             <TrackerItem
-                                                                key={s.id}
-                                                                session={s}
+                                                                key={session.id}
+                                                                session={session}
                                                                 person={personKey}
                                                                 profileId={profile.id}
                                                                 onToggle={handleToggle}

@@ -14,7 +14,7 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
 
     const getPercentage = (name: string) => {
         const key = name.toLowerCase() as "leo" | "klara";
-        const done = filtered.filter((session) => session.completed[key]).length ;
+        const done = filtered.filter((session) => session.completed[key]).length;
         return filtered.length ? Math.round((done / filtered.length) * 100) : 0;
     };
 
@@ -24,10 +24,8 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
                 <div className="text-uppercase fw-semibold text-secondary" style={{ fontSize: 11, letterSpacing: ".05em" }}>
                     {typeLabel}
                 </div>
-                
             </div>
 
-            {/* Added pr-4 (or pe-4 in Bootstrap 5) to make room for the flag at the end of the track */}
             <div className="px-3 pe-5 position-relative">
                 {profiles.map((profile) => {
                     const percentage = getPercentage(profile.name);
@@ -51,11 +49,7 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
                     );
                 })}
 
-                
-                <div 
-                    className="position-absolute end-0 top-50   translate-middle-y fs-3 pe-2" 
-                    style={{ zIndex: 2, marginTop: '-25px' }} // Minor tweak to align perfectly with the middle of the lanes
-                >
+                <div className="position-absolute end-0 top-50 translate-middle-y fs-3 pe-2" style={{ zIndex: 2, marginTop: "-25px" }}>
                     🏁
                 </div>
             </div>
