@@ -19,11 +19,11 @@ const MainContent = ({ activeView, profiles }: MainContentProps) => {
 
     const sportType = activeView === "swimming" ? "swim" : activeView === "cycling" ? "bike" : "run";
 
-    const title = activeView.charAt(0).toUpperCase() + activeView.slice(1);
+ 
 
     return (
         <>
-            <h1 className="h2 pb-2 mb-3 border-bottom">{title}</h1>
+           
             <TrainingLog profiles={profiles} type={sportType} />
         </>
     );

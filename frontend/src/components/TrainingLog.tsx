@@ -72,151 +72,164 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
     const msPerWeek = 1000 * 60 * 60 * 24 * 7;
     const weeksToGo = Math.max(0, Math.ceil((raceDate.getTime() - today.getTime()) / msPerWeek));
 
+    // Get display label for sports
+    const sportLabel = type === "swim" ? "Swimming" : type === "bike" ? "Cycling" : type === "run" ? "Running" : "";
+
     return (
-        <div className="row g-4 mt-1">
-            {profiles.map((profile, index) => {
-                const personKey = profile.name.toLowerCase() as Person;
+        <div className="w-100 mt-1">
+            {/* Massive Nike Style Header for Single Sports */}
+            {type !== "all" && (
+                <div className="mb-5 border-bottom pb-3">
+                    <h1 
+                        style={{ 
+                            fontSize: "4.5rem", 
+                            fontWeight: 900, 
+                            fontStyle: "italic", 
+                            lineHeight: 0.9, 
+                            letterSpacing: "-2.5px",
+                            textTransform: "uppercase",
+                            color: sportColors[type] || "#111"
+                        }}
+                    >
+                        {sportLabel}
+                    </h1>
+                </div>
+            )}
 
-                // Progress calculations
-                const totalWorkouts = filteredSessions.length;
-                const completedCount = filteredSessions.filter((s) => s.completed[personKey]).length;
+            <div className="row g-4">
+                {profiles.map((profile, index) => {
+                    const personKey = profile.name.toLowerCase() as Person;
 
-                // Group the sessions for this specific user
-                const groupedSessions = groupSessionsByWeek(filteredSessions);
+                    // Progress calculations
+                    const totalWorkouts = filteredSessions.length;
+                    const completedSessions = filteredSessions.filter((s) => s.completed[personKey]);
+                    const completedCount = completedSessions.length;
 
-                // Determine the "Current Week" to auto-expand it
-                const weekKeys = Object.keys(groupedSessions).sort();
+                    const totalDistance = completedSessions.reduce((sum, s) => sum + (s.distance || s.distance || 0), 0);
+                    const unit = type === "swim" ? "m" : "km";
 
-                return (
-                    <div key={profile.id} className={`col-12 col-md-6 ${index === 1 ? "border-md-start ps-md-4" : ""}`}>
-                        {/* Member Profile Avatar */}
-                        <div className="d-flex align-items-center gap-3 mb-4">
-                            <img
-                                src={profile.image}
-                                alt={profile.name}
-                                className="rounded-circle border border-2 shadow-sm"
-                                style={{ width: 48, height: 48, objectFit: "cover", borderColor: profile.color }}
-                            />
-                            <h3 className="h5 mb-0 fw-bold">{profile.name}</h3>
-                        </div>
+                    // Group the sessions for this specific user
+                    const groupedSessions = groupSessionsByWeek(filteredSessions);
+                    const weekKeys = Object.keys(groupedSessions).sort();
 
-                        {/* Dynamic Header: Countdown vs Sport Stats */}
-                        {type === "all" ? (
-                            <div className="nike-header mb-4">
-                                <h2 className="weeks-to-go">{weeksToGo} Weeks to Go</h2>
-                                <p className="subtitle">Welcome to the Starting Line</p>
+                    return (
+                        <div key={profile.id} className={`col-12 col-md-6 ${index === 1 ? "border-md-start ps-md-4" : ""}`}>
+                            {/* Member Profile Avatar */}
+                            <div className="d-flex align-items-center gap-3 mb-4">
+                                <img
+                                    src={profile.image}
+                                    alt={profile.name}
+                                    className="rounded-circle border border-2 shadow-sm"
+                                    style={{ width: 48, height: 48, objectFit: "cover", borderColor: profile.color }}/>
 
-                                <div className="segmented-progress">
-                                    {[...Array(5)].map((_, i) => {
-                                        const percentComplete = totalWorkouts === 0 ? 0 : completedCount / totalWorkouts;
-                                        const segmentThreshold = (i + 1) * 0.2; 
-                                        const isCompleted = percentComplete >= segmentThreshold - 0.1; 
-                                        return <div key={i} className={`segment ${isCompleted ? "completed" : ""}`} />;
+                               
+                                <h3 className="h5 mb-0 fw-bold">{profile.name}</h3>
+                            </div>
+
+                            {/* Dynamic Header vs Card Grid Layout */}
+                            {type === "all" ? (
+                                <div className="nike-header mb-4">
+                                    <h2 className="weeks-to-go">{weeksToGo} Weeks to Go</h2>
+                                    <p className="subtitle">Welcome to the Starting Line</p>
+
+                                    <div className="segmented-progress">
+                                        {[...Array(5)].map((_, i) => {
+                                            const percentComplete = totalWorkouts === 0 ? 0 : completedCount / totalWorkouts;
+                                            const segmentThreshold = (i + 1) * 0.2; 
+                                            const isCompleted = percentComplete >= segmentThreshold - 0.1; 
+                                            return <div key={i} className={`segment ${isCompleted ? "completed" : ""}`} />;
+                                        })}
+                                    </div>
+                                    <div className="text-muted" style={{ fontSize: 13, fontWeight: 500 }}>
+                                        Workouts Completed: {completedCount} of {totalWorkouts}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="ps-2">
+                                    {/* Restored Clean Balanced Card Grid layout from old code */}
+                                    <div className="row g-2 mb-4">
+                                        <div className="col-6">
+                                            <div className="p-3 bg-light rounded-4 border-0 h-100">
+                                                <div
+                                                    className="text-secondary text-uppercase fw-bold mb-1"
+                                                    style={{ fontSize: 10, letterSpacing: "0.05em" }}
+                                                >
+                                                    Workouts
+                                                </div>
+                                                <div className="d-flex align-items-baseline gap-1">
+                                                    <span className="h2 mb-0 fw-bold">{completedCount}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-6">
+                                            <div className="p-3 bg-light rounded-4 border-0 h-100">
+                                                <div
+                                                    className="text-secondary text-uppercase fw-bold mb-1"
+                                                    style={{ fontSize: 10, letterSpacing: "0.05em" }}
+                                                >
+                                                    Distance
+                                                </div>
+                                                <div className="d-flex align-items-baseline gap-1">
+                                                    <span className="h2 mb-0 fw-bold">{totalDistance}</span>
+                                                    <span className="text-muted small">{unit}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Dynamic List Rendering */}
+                            {type === "all" ? (
+                                <div className="workout-list-container mt-4">
+                                    <h3 className="h6 fw-bold mb-3 text-uppercase" style={{ letterSpacing: "0.05em" }}>
+                                        To do this week
+                                    </h3>
+
+                                    {weekKeys.map((week, idx) => {
+                                        const isFirst = idx === 0;
+                                        return (
+                                            <WeeklyGroup
+                                                key={week}
+                                                title={week}
+                                                sessions={groupedSessions[week]}
+                                                personKey={personKey}
+                                                profileId={profile.id}
+                                                onToggle={handleToggle}
+                                                defaultOpen={isFirst}
+                                            />
+                                        );
                                     })}
                                 </div>
-                                <div className="text-muted" style={{ fontSize: 13, fontWeight: 500 }}>
-                                    Workouts Completed: {completedCount} of {totalWorkouts}
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="sport-stats-header mb-4">
-                                <h2 
-                                    style={{ 
-                                        fontSize: "3.5rem", 
-                                        fontWeight: 900, 
-                                        fontStyle: "italic", 
-                                        lineHeight: 0.85, 
-                                        letterSpacing: "-1.5px",
-                                        textTransform: "uppercase",
-                                        color: sportColors[type] || "#111"
-                                    }}
-                                >
-                                    {filteredSessions.filter((s) => s.completed[personKey]).reduce((sum, s) => sum + s.distance, 0)} 
-                                    <span style={{ fontSize: "2rem", marginLeft: "4px" }}>
-                                        {type === "swim" ? "M" : "KM"}
-                                    </span>
-                                    <br />
-                                    CLEARED
-                                </h2>
-                                <div className="text-muted fw-bold text-uppercase mt-3" style={{ fontSize: 13, letterSpacing: "0.05em" }}>
-                                    {completedCount} {type}s Completed
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Dynamic List Rendering: Accordions vs Flat Lists */}
-                        {type === "all" ? (
-                            <div className="workout-list-container mt-4">
-                                <h3 className="h6 fw-bold mb-3 text-uppercase" style={{ letterSpacing: "0.05em" }}>
-                                    To do this week
-                                </h3>
-
-                                {weekKeys.map((week, idx) => {
-                                    const isFirst = idx === 0;
-                                    return (
-                                        <WeeklyGroup
-                                            key={week}
-                                            title={week}
-                                            sessions={groupedSessions[week]}
-                                            personKey={personKey}
-                                            profileId={profile.id}
-                                            onToggle={handleToggle}
-                                            defaultOpen={isFirst}
-                                        />
-                                    );
-                                })}
-                            </div>
-                        ) : (
-                            <div className="workout-list-container mt-4">
-                                {/* Up Next Section */}
-                                {filteredSessions.filter(s => !s.completed[personKey]).length > 0 && (
-                                    <div className="mb-4">
-                                        <h3 className="h6 fw-bold mb-3 text-uppercase" style={{ letterSpacing: "0.05em" }}>
-                                            Up Next
-                                        </h3>
-                                        <div className="d-flex flex-column">
-                                            {filteredSessions
-                                                .filter(s => !s.completed[personKey])
-                                                .map((s) => (
-                                                    <TrackerItem
-                                                        key={s.id}
-                                                        session={s}
-                                                        person={personKey}
-                                                        profileId={profile.id}
-                                                        onToggle={handleToggle}
-                                                    />
-                                                ))}
+                            ) : (
+                                <div className="workout-list-container mt-4 ps-2">
+                                    <h4 className="small text-uppercase fw-bold text-secondary mb-3" style={{ letterSpacing: "0.05em" }}>
+                                        Completed History
+                                    </h4>
+                                    
+                                    {completedCount === 0 ? (
+                                        <p className="text-muted small py-3 text-center border rounded-3 bg-light bg-opacity-50">
+                                            No sessions completed yet.
+                                        </p>
+                                    ) : (
+                                        <div className="d-flex flex-column gap-2">
+                                            {completedSessions.map((s) => (
+                                                <TrackerItem
+                                                    key={s.id}
+                                                    session={s}
+                                                    person={personKey}
+                                                    profileId={profile.id}
+                                                    onToggle={handleToggle}
+                                                />
+                                            ))}
                                         </div>
-                                    </div>
-                                )}
-
-                                {/* Completed History Section */}
-                                {filteredSessions.filter(s => s.completed[personKey]).length > 0 && (
-                                    <div>
-                                        <h4 className="h6 fw-bold mb-3 text-uppercase text-muted" style={{ letterSpacing: "0.05em" }}>
-                                            Completed History
-                                        </h4>
-                                        {/* Lower opacity to visually separate history from actionable items */}
-                                        <div className="d-flex flex-column" style={{ opacity: 0.65 }}>
-                                            {filteredSessions
-                                                .filter(s => s.completed[personKey])
-                                                .map((s) => (
-                                                    <TrackerItem
-                                                        key={s.id}
-                                                        session={s}
-                                                        person={personKey}
-                                                        profileId={profile.id}
-                                                        onToggle={handleToggle}
-                                                    />
-                                                ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                );
-            })}
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };
