@@ -19,11 +19,8 @@ const MainContent = ({ activeView, profiles }: MainContentProps) => {
 
     const sportType = activeView === "swimming" ? "swim" : activeView === "cycling" ? "bike" : "run";
 
- 
-
     return (
         <>
-           
             <TrainingLog profiles={profiles} type={sportType} />
         </>
     );

@@ -3,10 +3,11 @@ import { useSchedule } from "../context/ScheduleContext";
 import type { Person, Profile, Session } from "../types/Session";
 import TrackerItem from "./TrackerItem";
 
+// =============== CONFIG & HELPERS ===============
 const sportColors: Record<string, string> = {
-    run: "#f93822",  // Nike Infrared
-    bike: "#bbed21", // Nike Volt
-    swim: "#0055ff", // Nike Racer Blue
+    run: "#f93822",
+    bike: "#bbed21",
+    swim: "#0055ff",
 };
 
 const groupSessionsByWeek = (sessions: Session[]) => {
@@ -20,6 +21,7 @@ const groupSessionsByWeek = (sessions: Session[]) => {
     return groups;
 };
 
+// =============== SUB-COMPONENTS ===============
 const WeeklyGroup = ({
     title,
     sessions,
@@ -60,12 +62,11 @@ export interface TrainingLogProps {
     type: "all" | "swim" | "bike" | "run";
 }
 
+// =============== MAIN COMPONENT ===============
 const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
     const { sessions, handleToggle } = useSchedule();
-    const filteredSessions = type === "all" ? sessions : sessions.filter((s) => s.type === type);
-
-    // --- UX STATE: "all" shows both, otherwise contains specific profile.id ---
     const [activeProfileFilter, setActiveProfileFilter] = useState<"all" | number>("all");
+    const filteredSessions = type === "all" ? sessions : sessions.filter((s) => s.type === type);
 
     const raceDate = new Date("2026-08-02T00:00:00");
     const today = new Date();
@@ -74,24 +75,22 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
 
     const sportLabel = type === "swim" ? "Swimming" : type === "bike" ? "Cycling" : type === "run" ? "Running" : "";
 
-    // Filter the rendering loop array based on our segment button selection
-    const displayedProfiles = activeProfileFilter === "all" 
-        ? profiles 
-        : profiles.filter(p => p.id === activeProfileFilter);
+    const displayedProfiles = activeProfileFilter === "all" ? profiles : profiles.filter((p) => p.id === activeProfileFilter);
 
     return (
         <div className="w-100 mt-1">
+            {/* =============== SECTION PAGE TITLE =============== */}
             {type !== "all" && (
                 <div className="mb-4 border-bottom pb-3">
-                    <h1 
-                        style={{ 
-                            fontSize: "4.5rem", 
-                            fontWeight: 900, 
-                            fontStyle: "italic", 
-                            lineHeight: 0.9, 
+                    <h1
+                        style={{
+                            fontSize: "4.5rem",
+                            fontWeight: 900,
+                            fontStyle: "italic",
+                            lineHeight: 0.9,
                             letterSpacing: "-2.5px",
                             textTransform: "uppercase",
-                            color: sportColors[type] || "#111"
+                            color: sportColors[type] || "#111",
                         }}
                     >
                         {sportLabel}
@@ -99,7 +98,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                 </div>
             )}
 
-            {/* --- UI COMPONENT: Premium User Filter Tabs --- */}
+            {/* =============== FILTER TABS =============== */}
             <div className="d-flex justify-content-start align-items-center mb-5 p-1 bg-light rounded-4" style={{ maxWidth: "fit-content" }}>
                 <button
                     onClick={() => setActiveProfileFilter("all")}
@@ -110,7 +109,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                         backgroundColor: activeProfileFilter === "all" ? "#111" : "transparent",
                         color: activeProfileFilter === "all" ? "#fff" : "#666",
                         border: "none",
-                        boxShadow: activeProfileFilter === "all" ? "0px 4px 12px rgba(0,0,0,0.1)" : "none"
+                        boxShadow: activeProfileFilter === "all" ? "0px 4px 12px rgba(0,0,0,0.1)" : "none",
                     }}
                 >
                     Both Athletes
@@ -126,7 +125,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                             backgroundColor: activeProfileFilter === profile.id ? "#111" : "transparent",
                             color: activeProfileFilter === profile.id ? "#fff" : "#666",
                             border: "none",
-                            boxShadow: activeProfileFilter === profile.id ? "0px 4px 12px rgba(0,0,0,0.1)" : "none"
+                            boxShadow: activeProfileFilter === profile.id ? "0px 4px 12px rgba(0,0,0,0.1)" : "none",
                         }}
                     >
                         {profile.name}
@@ -134,7 +133,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                 ))}
             </div>
 
-            {/* --- LAYOUT GRID: Handles layout shift dynamically --- */}
+            {/* =============== CARDS GRID =============== */}
             <div className="row g-5">
                 {displayedProfiles.map((profile) => {
                     const personKey = profile.name.toLowerCase() as Person;
@@ -143,25 +142,20 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                     const completedSessions = filteredSessions.filter((s) => s.completed[personKey]);
                     const completedCount = completedSessions.length;
 
-                    const totalDistance = completedSessions.reduce((sum, s) => sum + (s.distance || s.distance || 0), 0);
+                    const totalDistance = completedSessions.reduce((sum, s) => sum + (s.distance || 0), 0);
                     const unit = type === "swim" ? "m" : "km";
 
                     const activeTodoSessions = filteredSessions.filter((s) => !s.completed[personKey]);
                     const groupedSessions = groupSessionsByWeek(type === "all" ? activeTodoSessions : completedSessions);
                     const weekKeys = Object.keys(groupedSessions).sort();
 
-                    // If we isolate down to a single user, make that column take up full width (col-12), else split it (col-md-6)
-                    const columnClass = displayedProfiles.length === 1 
-                        ? "col-12 max-width-container" 
-                        : "col-12 col-md-6";
+                    const columnClass = displayedProfiles.length === 1 ? "col-12 max-width-container" : "col-12 col-md-6";
 
-                    // Handle middle border styling dynamically
-                    const borderClass = displayedProfiles.length > 1 && profiles.indexOf(profile) === 1 
-                        ? "border-md-start ps-md-5" 
-                        : "";
+                    const borderClass = displayedProfiles.length > 1 && profiles.indexOf(profile) === 1 ? "border-md-start ps-md-5" : "";
 
                     return (
                         <div key={profile.id} className={`${columnClass} ${borderClass}`}>
+                            {/* =============== MEMBER =============== */}
                             <div className="d-flex align-items-center gap-3 mb-4">
                                 <img
                                     src={profile.image}
@@ -169,9 +163,12 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                     className="rounded-circle border border-2 shadow-sm"
                                     style={{ width: 56, height: 56, objectFit: "cover", borderColor: profile.color }}
                                 />
-                                <h3 className="h4 mb-0 fw-bold" style={{ letterSpacing: "-0.5px" }}>{profile.name}</h3>
+                                <h3 className="h4 mb-0 fw-bold" style={{ letterSpacing: "-0.5px" }}>
+                                    {profile.name}
+                                </h3>
                             </div>
 
+                            {/* =============== COUNTDOWN HEADER vs SPORT STATS =============== */}
                             {type === "all" ? (
                                 <div className="nike-header mb-4">
                                     <h2 className="weeks-to-go">{weeksToGo} Weeks to Go</h2>
@@ -180,8 +177,8 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                     <div className="segmented-progress">
                                         {[...Array(5)].map((_, i) => {
                                             const percentComplete = totalWorkouts === 0 ? 0 : completedCount / totalWorkouts;
-                                            const segmentThreshold = (i + 1) * 0.2; 
-                                            const isCompleted = percentComplete >= segmentThreshold - 0.1; 
+                                            const segmentThreshold = (i + 1) * 0.2;
+                                            const isCompleted = percentComplete >= segmentThreshold - 0.1;
                                             return <div key={i} className={`segment ${isCompleted ? "completed" : ""}`} />;
                                         })}
                                     </div>
@@ -194,7 +191,10 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                     <div className="row g-3 mb-4">
                                         <div className="col-6">
                                             <div className="p-3 bg-light rounded-4 border-0 h-100">
-                                                <div className="text-secondary text-uppercase fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.05em" }}>
+                                                <div
+                                                    className="text-secondary text-uppercase fw-bold mb-1"
+                                                    style={{ fontSize: 10, letterSpacing: "0.05em" }}
+                                                >
                                                     Workouts
                                                 </div>
                                                 <div className="d-flex align-items-baseline gap-1">
@@ -204,7 +204,10 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                         </div>
                                         <div className="col-6">
                                             <div className="p-3 bg-light rounded-4 border-0 h-100">
-                                                <div className="text-secondary text-uppercase fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.05em" }}>
+                                                <div
+                                                    className="text-secondary text-uppercase fw-bold mb-1"
+                                                    style={{ fontSize: 10, letterSpacing: "0.05em" }}
+                                                >
                                                     Distance
                                                 </div>
                                                 <div className="d-flex align-items-baseline gap-1">
@@ -217,6 +220,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                 </div>
                             )}
 
+                            {/* =============== DYNAMIC WORKOUT LIST RENDERING =============== */}
                             {type === "all" ? (
                                 <div className="workout-list-container mt-4">
                                     <h3 className="h6 fw-bold mb-3 text-uppercase" style={{ letterSpacing: "0.05em" }}>
@@ -249,7 +253,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                     <h4 className="small text-uppercase fw-bold text-secondary mb-3" style={{ letterSpacing: "0.05em" }}>
                                         Completed History
                                     </h4>
-                                    
+
                                     {weekKeys.length === 0 ? (
                                         <p className="text-muted small py-3 text-center border rounded-3 bg-light bg-opacity-50">
                                             No sessions completed yet.
@@ -258,7 +262,10 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
                                         <div className="d-flex flex-column gap-4">
                                             {weekKeys.map((week) => (
                                                 <div key={week}>
-                                                    <div className="text-muted small fw-bold text-uppercase mb-2" style={{ letterSpacing: '0.05em', fontSize: '11px' }}>
+                                                    <div
+                                                        className="text-muted small fw-bold text-uppercase mb-2"
+                                                        style={{ letterSpacing: "0.05em", fontSize: "11px" }}
+                                                    >
                                                         {week}
                                                     </div>
                                                     <div className="d-flex flex-column gap-2">

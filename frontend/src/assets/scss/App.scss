@@ -25,7 +25,7 @@ h6 {
         width: 44px;
         height: 44px;
         object-fit: cover;
-        background-color: #ffffff; // bg-white
+        background-color: #ffffff;
         transition: left 0.5s ease;
         z-index: 2;
     }
@@ -60,15 +60,15 @@ h6 {
 ========================================= */
 
 .bottom-nav-container {
-    --hue: 217;
-    --sat: 85%;
-    --light: 74%;
+    --hue: 0;
+    --sat: 0%;
+    --light: 7%;
     --primary-color: hsl(var(--hue) var(--sat) var(--light));
-    --hover-color: hsl(var(--hue) var(--sat) calc(var(--light) - 7%));
-    --bottom-nav-bg: hsl(var(--hue) 32% 85% / 0.65);
-    --dark-color: hsl(var(--hue) 26% 12%);
-    --color-02: hsl(var(--hue) 26% 12%);
-    --white-color: hsl(var(--hue) 45% 98%);
+    --hover-color: rgba(0, 0, 0, 0.05);
+    --bottom-nav-bg: #e9e9e9e9;
+    --dark-color: #ffffff;
+    --color-02: #666666;
+    --white-color: #111111;
     --tiny-font-size: 0.88rem;
     --z-tooltip: 1000;
     --z-minus: -1;
@@ -102,11 +102,11 @@ h6 {
             justify-content: center;
             align-items: center;
             column-gap: 25px;
-            border-bottom: 1px solid hsl(var(--hue) 45% 98% / 0.1);
-            border-left: 1px solid hsl(var(--hue) 45% 98% / 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.03);
             border-radius: 50px;
             margin: 0;
             list-style: none;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
 
             li a {
                 display: flex;
@@ -171,6 +171,32 @@ h6 {
                     i {
                         color: var(--dark-color);
                         background: var(--primary-color);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .bottom-nav-container {
+        bottom: 15px;
+
+        .bottom-nav {
+            width: auto;
+            padding: 0;
+
+            .menu {
+                padding: 12px 20px;
+                justify-content: center;
+                column-gap: 15px;
+                width: auto;
+                border-radius: 40px;
+
+                li a {
+                    i {
+                        font-size: 1.1rem;
+                        padding: 8px;
                     }
                 }
             }

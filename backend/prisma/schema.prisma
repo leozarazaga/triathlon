@@ -8,34 +8,32 @@ datasource db {
 }
 
 model User {
-  id               Int                 @id @default(autoincrement())
-  name             String              // "Leo" or "Klara"
-  completions      SessionCompletion[]
+  id          Int                 @id @default(autoincrement())
+  name        String
+  completions SessionCompletion[]
 }
 
 model Session {
   id          Int                 @id @default(autoincrement())
-  type        SessionType         // SWIM, BIKE, RUN
-  description String              // Maps to your "desc" field
-  distance    Float               // Maps to your "dist" field
-  unit        String              // "m" or "km"
-  date        String              // Maps to your "Wed May 3rd" format
+  type        SessionType
+  description String
+  distance    Float
+  unit        String
+  date        String
   completions SessionCompletion[]
 }
 
-// This tracks individual completions for Leo and Klara
 model SessionCompletion {
-  id          Int       @id @default(autoincrement())
-  completedAt DateTime  @default(now())
+  id          Int      @id @default(autoincrement())
+  completedAt DateTime @default(now())
 
   // Relations
-  userId      Int
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sessionId   Int
-  session     Session   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId Int
+  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
-  // A user can only complete a specific session once
-  @@unique([userId, sessionId]) 
+  @@unique([userId, sessionId])
 }
 
 enum SessionType {

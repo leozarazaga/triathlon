@@ -13,7 +13,6 @@ async function main() {
     // Create Leo and Klara
     // --- UPDATE THIS SECTION IN YOUR SEED FILE ---
 
-    // Create Leo with explicit ID 1
     const leo = await prisma.user.create({
         data: {
             id: 1,
@@ -21,7 +20,6 @@ async function main() {
         },
     });
 
-    // Create Klara with explicit ID 2
     const klara = await prisma.user.create({
         data: {
             id: 2,
@@ -241,7 +239,7 @@ async function main() {
                 description: `[W${sessionData.week}] ${sessionData.description}`,
                 distance: sessionData.distance,
                 unit: sessionData.unit,
-                date: `Week ${sessionData.week}`, // Stripped out the day string to keep code structured and clean
+                date: `Week ${sessionData.week}`, 
             },
         });
     }

@@ -19,9 +19,6 @@ const BottomNavbar = ({ activeView, onViewChange }: BottomNavbarProps) => {
                     <ul className="menu">
                         <li className="menu-item">
                             <a href="#" onClick={(e) => handleNavClick(e, "overview")} className={activeView === "overview" ? "current" : ""}>
-                                {/* <i className="fa-solid fa-table-cells-large"></i> */}
-                                {/* <i className="fa-solid fa-chart-bar"></i> */}
-                                {/* <i className="fa-solid fa-chart-line"></i> */}
                                 <i className="fa-solid fa-chart-column"></i>
                                 <span>Dashboard</span>
                             </a>
