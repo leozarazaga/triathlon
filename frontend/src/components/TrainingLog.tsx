@@ -99,7 +99,7 @@ const TrainingLog = ({ profiles, type }: TrainingLogProps) => {
             )}
 
             {/* =============== FILTER TABS =============== */}
-            <div className="d-flex justify-content-start align-items-center mb-5 p-1 bg-light rounded-4" style={{ maxWidth: "fit-content" }}>
+            <div className="d-flex justify-content-start align-items-center mb-5 bg-light rounded-4" style={{ maxWidth: "fit-content" }}>
                 <button
                     onClick={() => setActiveProfileFilter("all")}
                     className="btn px-4 py-2 rounded-3 fw-bold text-uppercase transition-all text-nowrap"

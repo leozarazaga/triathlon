@@ -14,10 +14,6 @@ h6 {
 ========================================= */
 
 .race-tracker-lane {
-    position: relative;
-    display: flex;
-    align-items: center;
-
     .track-bg {
         height: 12px;
         transform: skewX(-20deg);

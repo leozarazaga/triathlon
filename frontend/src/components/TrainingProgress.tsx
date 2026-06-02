@@ -28,7 +28,7 @@ const TrainingProgress = ({ profiles, type }: RaceTrackerProps) => {
             </div>
 
             {/* =============== SKEWED TRACKS CONTAINER =============== */}
-            <div className="pe-4 position-relative">
+            <div className="position-relative">
                 {profiles.map((profile) => {
                     const percentage = getPercentage(profile.name);
 
